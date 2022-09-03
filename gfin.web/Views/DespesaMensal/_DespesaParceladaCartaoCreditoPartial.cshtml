@@ -1,0 +1,98 @@
+﻿@model GFin.Web.Models.DespesaMensalParcelamentoCartaoCreditoModel
+<div class="modal fade" id="modalRegistrarDespesaParceladaCartaoCredito" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Registrar Despesa Parcelada - Cartão de Crédito</h4>
+            </div>
+            <div class="modal-body" style="height: 600px;overflow-y: auto;">
+                <div class="row mensagens">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="alert"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label class="control-label" for="IdBancoAgenciaContaCorrente">Banco / Agência / Conta Corrente</label>
+                            @if (Model.DropboxBancoAgenciaContaCorrente != null)
+                            {
+                                @Html.DropDownListFor(model => model.IdBancoAgenciaContaCorrente, Model.DropboxBancoAgenciaContaCorrente.Itens, new { @class = "form-control", @title = "Banco/Agência/Conta Corrente" })
+                            }
+                            else
+                            {
+                                <div class="alert alert-warning" role="alert">Nenhum conta corrente registrada.</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><hr /></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="divListaCartoesCreditoContaCorrente">
+                        @{ Html.RenderPartial("~/Views/CartaoCredito/_ListaBasicaCartaoCreditoPartial.cshtml", Model.Cartoes); }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-xs-8">
+                        <div class="form-group">
+                            <label class="control-label" for="FormaPagamentoDespesaMensal">Forma Liquidação</label>
+                            @Html.TextBoxFor(model => model.FormaPagamentoDespesaMensal, new { @readonly = true, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <div class="form-group">
+                            <label class="control-label" for="QtdParcelasDespesa">Qtd de Parcelas</label>
+                            @Html.TextBoxFor(model => model.QtdParcelasDespesa, new { @readonly = true, @class = "form-control text-center" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th class="hidden-xs">Parcela</th>
+                                    <th class="text-center"><span class="hidden-xs hidden-sm">Data de </span>Vencimento</th>
+                                    <th class="text-center"><span class="hidden-xs hidden-sm">Número da </span><span class="visible-sm visible-xs">Nº </span>Parcela</th>
+                                    <th class="text-center">Valor<span class="hidden-xs hidden-sm"> da Parcela</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    decimal ValorTotalParcelamento = 0;
+                                    if (Model.ParcelasDespesa != null)
+                                    {
+                                        for (int i = 0; i < Model.ParcelasDespesa.Count; i++)
+                                        {
+                                            ValorTotalParcelamento += Model.ParcelasDespesa[i].ValorParcela;
+                                            <tr>
+                                                <td class="hidden-xs">@(string.Format("{0}/{1}", (i + 1).ToString("00"), Model.ParcelasDespesa.Count.ToString("00")))</td>
+                                                <td>@Html.TextBoxFor(x => Model.ParcelasDespesa[i].DataVencimento, String.Format("{0:d}", Model.ParcelasDespesa[i].DataVencimento), new { @required = true, @maxlength = 10, @alt = "data", @class = "form-control text-center", @title = String.Format("Vencimento ({0})", Model.ParcelasDespesa[i].DataVencimento.ToString("dddd")) })</td>
+                                                <td>@Html.TextBoxFor(x => Model.ParcelasDespesa[i].NumeroParcela, new Dictionary<string, Object> { { "readonly", "true" }, { "required", "true" }, { "maxlength", "8" }, { "alt", "numero-parcela" }, { "class", "form-control text-center numeroParcela" }, { "title", "Número do Parcelamento" }, { "data-numero-parcela", Model.ParcelasDespesa[i].NumeroParcela } })</td>
+                                                <td>@Html.TextBoxFor(x => Model.ParcelasDespesa[i].ValorParcela, new { @required = true, @maxlength = "15", @alt = "valor", @class = "form-control text-right valorParcelaCartao", @title = "Valor da Parcela" })</td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td class="hidden-xs">&nbsp;</td>
+                                    <td colspan="2" class="text-right"><strong>Valor Total do Parcelamento:</strong>&nbsp;</td>
+                                    <td>@Html.TextBox("ValorTotalParcelamento", @ValorTotalParcelamento.ToString("n"), new { @id = "ValorTotalParcelamento_Cartao", @readonly = "readonly", @class = "form-control text-right" })</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnRegistrarDespesaParceladaCartaoCredito" type="button" class="btn btn-sm btn-primary">Registrar</button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

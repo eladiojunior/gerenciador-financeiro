@@ -1,0 +1,88 @@
+﻿@model GFin.Web.Models.CompartilharControleModel
+
+@{
+    ViewBag.Title = "Compartilhar controle financeiro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section StylePage {
+    <link href="~/Content/bootstrap/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/css/bootstrap-tokenfield.min.css" rel="stylesheet" />
+}
+<div class="page-header">
+    <small>Aqui você pode compartilhar o controle finaceiro da sua casa ou empresa de forma fácil e simples.</small>
+</div>
+<h4>Como funciona?</h4>
+<ul>
+    <li>Informe os nomes (opcional) e e-mails das <strong>pessoas</strong> (amigos, parceiros, sócios, etc.) com quem deseja compartilhar seu controle financeiro;</li>
+    <li>
+        Informe o tipo de permissão de acesso que essas pessoas terão no seu controle financeiro;
+        <ul>
+            <li>Permissão para <strong>editar</strong>: poderam incluir, alterar e excluir informações do controle financeiro;</li>
+            <li>Permissão para <strong>visualizar</strong>: somente poderam visualizar as informações do controle financeiro;</li>
+        </ul>
+    </li>
+    <li>Escreva uma mensagem (opcional) para as pessoas escolhidas;</li>
+    <li>Confirme o compartilhamento que enviaremos um e-mail para cada pessoa, com as informações necessárias para que ela aceite (se quiser) o convite.</li>
+</ul>
+<p class="text-muted">Lembramos que você pode remover os compartilhamentos, alterar a permissão e adicionar (até quatro pessoas) quando preferir.</p>
+@using (Html.BeginForm("Compartilhar", "ControleFinanceiro", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+            <div class="form-group">
+                <label for="Emails">Informe os nomes (opcional) e e-mails das pesssoas (máximo quatro):</label>
+                @Html.TextBoxFor(model => model.Emails, new Dictionary<string, object> { { "placeholder", "Nome (email@dominio.com) ou email@dominio.com" }, { "data-inputType", "email" }, { "class", "form-control tokenfield" }, { "data-limit", "4" } })
+                @Html.ValidationMessageFor(model => model.Emails)
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+            <div class="form-group">
+                <label for="Permissao">Permissão:</label>
+                @Html.DropDownListFor(model => model.CodigoPermissao, Model.DropboxPermissoesCompartilhamento.Itens, new { @required = true, @class = "form-control selectpicker show-tick", @title = "Permissões concedidas as pessoas do compartilhamento." })
+                @Html.ValidationMessageFor(model => model.CodigoPermissao)
+            </div>
+        </div>
+    </div>
+     <div class="row">
+         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+             <div class="form-group">
+                 <label for="Mensagem">Informe uma mensagem (opcional):</label>
+                 @Html.TextAreaFor(model => model.Mensagem, new { @class = "form-control", @rows = "3" })
+                 @Html.ValidationMessageFor(model => model.Mensagem)
+             </div>
+         </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="pull-right">
+                <button id="btnCompartilhar" type="submit" class="btn btn-primary">Compartilhar</button>
+            </div>
+        </div>
+    </div>
+}
+@section ScriptPage {
+    <script src="~/Content/bootstrap/js/bootstrap-select.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap-tokenfield.min.js"></script>
+    <script>
+        $('.tokenfield')
+            .on('tokenfield:createtoken', function (e) {
+                var data = e.attrs.value.split('|')
+                e.attrs.value = data[1] || data[0]
+                e.attrs.label = data[1] ? data[0] + ' (' + data[1] + ')' : data[0]
+            })
+            .on('tokenfield:createdtoken', function (e) {
+                var re = /\S+@@\S+\.\S+/
+                var valid = re.test(e.attrs.value)
+                if (!valid) {
+                    $(e.relatedTarget).addClass('invalid')
+                }
+            })
+            .on('tokenfield:edittoken', function (e) {
+                if (e.attrs.label !== e.attrs.value) {
+                    var label = e.attrs.label.split(' (')
+                    e.attrs.value = label[0] + '|' + e.attrs.value
+                }
+            })
+            .tokenfield();
+    </script>
+}

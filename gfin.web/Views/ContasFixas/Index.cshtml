@@ -1,0 +1,56 @@
+﻿@model GFin.Web.Models.HistoricoVerificacaoContasFixasModel
+@{
+    ViewBag.Title = "Histórico de Verificação de Contas Fixas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-header">
+    <h3>
+        Lista dos 10 últimos processos de verificação das Contas Fixas<br/>
+        <small>Um processo automático é executado, de 30 em 30 minutos, para identificar contas fixas que não foram lançadas em seu controle de contas (despesas ou receitas) no mês corrente.</small>
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="pull-right">
+            @Html.ActionLink("Processar", "Processar", "ContasFixas", null, new { @title = "Inicializar processamento manualmente a verificação das contas fixas.", @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">Data/Hora</th>
+            <th>Descrição</th>
+            <th>Situação</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model.ListaUltimosProcessos.Count == 0)
+            {
+                <tr>
+                    <td colspan="4">Nenhum processo de verificação foi executado.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model.ListaUltimosProcessos)
+                {
+                    <tr class="@(item.CodigoTipoSituacaoAtualProcesso==(short)GFin.Dados.Enums.TipoSituacaoProcessoEnum.Erro?"danger":"")">
+                        <td class="text-center">@item.DataHoraRegistroProcesso.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                        <td>@item.NomeProcessoAutomatico</td>
+                        <td>@GFin.Dados.Enums.UtilEnum.GetTextoTipoSituacaoProcesso(item.CodigoTipoSituacaoAtualProcesso)</td>
+                        <td class="text-center">
+                            <a href="#" data-id="@item.Id" class="glyphicon glyphicon-th-list linkHistoricoProcesso" title="Exibir o detalhamento do histório deste processo."></a>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+<div id="historicoProcesso"></div>
+@section ScriptPage {
+    <script src="~/Content/site/js/ViewContasFixas.js"></script>
+}

@@ -1,0 +1,208 @@
+﻿@model GFin.Web.Models.Filtros.FiltroContasModel
+@{
+    int anoFiltro = Model.DataInicialFiltro.Year;
+    int mesFiltro = Model.DataInicialFiltro.Month;
+}
+<br />
+<div class="panel panel-default">
+    <div class="btn-group btn-group-justified visible-xs" role="group">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default filtroContas" data-filtro="01/12/@(anoFiltro - 1)" title="Voltar para Dezembro/@(anoFiltro - 1)">@(anoFiltro - 1)</button>
+        </div>
+        <div class="btn-group" role="group" style="width: 3%;">
+            <select id="DataInicialFiltro" class="form-control filtroContasSelect">
+                @foreach (SelectListItem item in Model.DropboxFiltroMesAno.Itens)
+            {
+                    <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                }
+            </select>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default filtroContas" data-filtro="01/01/@(anoFiltro + 1)" title="Ir para Janeiro/@(anoFiltro + 1)">@(anoFiltro + 1)</button>
+        </div>
+    </div>
+    <ul class="nav nav-pills nav-justified hidden-xs">
+        <li>
+            <a href="#" class="filtroContas" data-filtro="01/12/@(anoFiltro - 1)" title="Voltar para Dezembro/@(anoFiltro - 1)">
+                <span aria-hidden="true">@(anoFiltro - 1)</span>
+            </a>
+        </li>
+        @foreach (SelectListItem item in Model.DropboxFiltroMesAno.Itens)
+        {
+            DateTime dataFiltro = DateTime.Parse(item.Value);
+            bool hasAtivo = (dataFiltro.CompareTo(Model.DataInicialFiltro) == 0);
+            <li class="hidden-xs @(hasAtivo ? "active" : "")"><a href="#" class="filtroContas" data-filtro="@item.Value" title="@item.Text"><span class="visible-sm">@dataFiltro.Month</span><span class="hidden-sm">@GFin.Negocio.UtilNegocio.ConverterPrimeiraLetraEmMaiusculo(dataFiltro.ToString("MMM"))</span></a></li>
+        }
+        <li>
+            <a href="#" class="filtroContas" data-filtro="01/01/@(anoFiltro + 1)" title="Ir para Janeiro/@(anoFiltro + 1)">
+                <span aria-hidden="true">@(anoFiltro + 1)</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <label><span>Filtro das Contas:</span></label>
+        <div class="form-group">
+            <label class="checkbox-inline" title="Exibe as contas de Receitas.">@Html.CheckBoxFor(model => model.IsExibirReceitas)<span class="hidden-xs">Exibir as </span>Receitas</label>
+            <label class="checkbox-inline" title="Exibe as contas de Despesas.">@Html.CheckBoxFor(model => model.IsExibirDespesas)<span class="hidden-xs">Exibir as </span>Despesas</label>
+            <label class="checkbox-inline" title="Exibe as contas Liquidadas (Pagas ou Recebidas).">@Html.CheckBoxFor(model => model.IsExibirLiquidadas)<span class="hidden-xs">Exibir contas </span>Liquidadas</label>
+            <label class="checkbox-inline" title="Exibe todas as contas (despesas ou receitas) abertas (não liquidadas) de meses anteriores.">@Html.CheckBoxFor(model => model.IsExibirContasAbertasMesesAnteriores)<span class="hidden-xs">Exibir contas </span><strong>Abertas</strong> de meses anteriores</label>
+        </div>
+    </div>
+</div>
+<hr/>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th class="hidden-xs hidden-sm">Natureza</th>
+            <th>Descrição<span class="hidden-xs hidden-sm"> Conta</span></th>
+            <th class="text-center"><span class="hidden-xs hidden-sm">Data </span>Conta</th>
+            <th class="hidden-xs hidden-sm">Forma Liquidação</th>
+            <th class="text-right">Valor<span class="hidden-xs hidden-sm"> Conta</span></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model.ContasMensais.Count == 0)
+            {
+                <tr>
+                    <td colspan="7">Nenhum registro de contas (despesa/receita) mensal encontrado.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model.ContasMensais)
+                {
+                    <tr class="@(item.IsContaLiquidada?"success":"")">
+                        <td class="text-center"><span class="glyphicon @(item.CodigoTipoConta == "D" ? "glyphicon-minus-sign span-despesa" : "glyphicon-plus-sign span-receita")" title="Conta do tipo: @(item.CodigoTipoConta == "D" ? "Despesa" : "Receita")" aria-hidden="true"></span></td>
+                        <td class="hidden-xs hidden-sm">@item.DescricaoNaturezaConta</td>
+                        <td>@item.DescricaoConta</td>
+                        <td class="text-center">
+                        @if (!item.IsContaLiquidada && item.IsContaVencida)
+                        {
+                            <span class="label @(item.CodigoTipoConta == "D" ? "despesa" : "receita")" title="Conta vencida há @item.QtdDiasVencimento dia(s).">
+                                <span class="glyphicon glyphicon-fire" aria-hidden="true"> </span>
+                                @item.DataConta.ToString("dd/MM/yyyy")
+                            </span>
+                        }
+                        else
+                        {
+                            @item.DataConta.ToString("dd/MM/yyyy")
+                        }
+                        </td>
+                        <td class="text-left hidden-xs hidden-sm">@item.DescricaoTipoFormaLiquidacao</td>
+                        <td class="text-right">@item.ValorConta.ToString("N")</td>
+                        <td class="text-center">
+                            <div class="btn-group dropup visible-xs">
+                                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    @if (item.IsContaLiquidada && item.IdConta != 0)
+                                    {
+                                        <li><a href="#" data-id="@item.IdConta" class="@(item.CodigoTipoConta == "D" ? "linkDetalharDespesaLiquidada" : "linkDetalharReceitaLiquidada")" title="@string.Format("Conta liquidada em {0}", item.DataLiquidacaoConta.HasValue?item.DataLiquidacaoConta.Value.ToString("dd/MM/yyyy"):"[Sem informação]")">Detalhar liquidação</a></li>
+                                        <li><a href="#" data-id="@item.IdConta" class="@(item.CodigoTipoConta == "D" ? "linkEstornarDespesaLiquidada" : "linkEstornarReceitaLiquidada")" title="Estornar conta liquidada">Estornar conta</a></li>
+                                    }
+                                    else if (item.IdConta != 0)
+                                    {
+                                        <li><a href="#" data-id="@item.IdConta" class="@(item.CodigoTipoConta == "D" ? "linkLiquidarDespesa" : "linkLiquidarReceita")" title="Liquidar conta mensal">Liquidar Conta</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="#" class="filtroContas" data-filtro="@item.DataConta.ToString("dd/MM/yyyy")" title="Carregar as contas de @item.DataConta.ToString("MMMM 'de' yyyy")">Carregar contas...</a></li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="hidden-xs hidden-sm">
+                                @if (item.IsContaLiquidada && item.IdConta != 0)
+                                {
+                                    <a href="#" data-id="@item.IdConta" class="glyphicon glyphicon-ok @(item.CodigoTipoConta == "D" ? "linkDetalharDespesaLiquidada" : "linkDetalharReceitaLiquidada")" title="@string.Format("Detalhar conta liquidada em {0}", item.DataLiquidacaoConta.HasValue?item.DataLiquidacaoConta.Value.ToString("dd/MM/yyyy"):"[Sem informação]")"></a>
+                                    <span>&nbsp;</span>
+                                    <a href="#" data-id="@item.IdConta" class="glyphicon glyphicon-erase @(item.CodigoTipoConta == "D" ? "linkEstornarDespesaLiquidada" : "linkEstornarReceitaLiquidada")" title="Estornar conta liquidada"></a>
+                                }
+                                else if (item.IdConta != 0)
+                                {
+                                    <a href="#" data-id="@item.IdConta" class="glyphicon glyphicon-usd @(item.CodigoTipoConta == "D" ? "linkLiquidarDespesa" : "linkLiquidarReceita")" title="Liquidar conta mensal"></a>
+                                }
+                                else
+                                {
+                                    <a href="#" class="glyphicon glyphicon-share-alt filtroContas" data-filtro="@item.DataConta.ToString("dd/MM/yyyy")" title="Carregar as contas de @item.DataConta.ToString("MMMM 'de' yyyy")"></a>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+<hr />
+<div class="row">
+    <div class="col-md-6 col-xs-12" style="padding-right: 5px;">
+        <div class="panel panel-danger">
+            <div class="panel-heading"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span> Totalizador de Despesas</div>
+            <div class="panel-body" style="padding-bottom: 2px;">
+                <div class="row">
+                    <div class="col-md-3 col-xs-6 padding-div-fina">
+                        <div class="form-group form-group-sm margin-div-fina">
+                            <label class="control-label-sm" for="ValorTotalDespesas">Geral:</label>
+                            @Html.TextBox("ValorTotalDespesas", @Model.ValorTotalDespesas.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas text-right" })
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 padding-div-fina">
+                        <div class="form-group form-group-sm margin-div-fina">
+                            <label class="control-label-sm" for="ValorTotalDespesasAbertas">Abertas:</label>
+                            @Html.TextBox("ValorTotalDespesasAbertas", @Model.ValorTotalDespesasAbertas.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas-abertas text-right" })
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 padding-div-fina">
+                        <div class="form-group form-group-sm margin-div-fina">
+                            <label class="control-label-sm" for="ValorTotalDespesasLiquidadas">Liquidadas:</label>
+                            @Html.TextBox("ValorTotalDespesasLiquidadas", @Model.ValorTotalDespesasLiquidadas.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas-pagas text-right" })
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 padding-div-fina">
+                        <div class="form-group form-group-sm margin-div-fina">
+                            <label class="control-label-sm" for="ValorTotalDespesasVencidas">Vencidas:</label>
+                            @Html.TextBox("ValorTotalDespesasVencidas", @Model.ValorTotalDespesasVencidas.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas-vencidas text-right" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xs-12" style="padding-left: 5px;">
+        <div class="panel panel-info">
+            <div class="panel-heading"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Totalizador de Receitas</div>
+            <div class="panel-body" style="padding-bottom: 2px;">
+                <div class="row">
+                    <div class="col-md-3 col-xs-6 padding-div-fina">
+                        <div class="form-group form-group-sm margin-div-fina">
+                            <label class="control-label-sm" for="ValorTotalReceitas">Geral:</label>
+                            @Html.TextBox("ValorTotalReceitas", @Model.ValorTotalReceitas.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas text-right" })
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 padding-div-fina">
+                        <div class="form-group form-group-sm margin-div-fina">
+                            <label class="control-label-sm" for="ValorTotalReceitasAbertas">Abertas:</label>
+                            @Html.TextBox("ValorTotalReceitasAbertas", @Model.ValorTotalReceitasAbertas.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas-abertas text-right" })
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 padding-div-fina">
+                        <div class="form-group form-group-sm margin-div-fina">
+                            <label class="control-label-sm" for="ValorTotalReceitasLiquidadas">Liquidadas:</label>
+                            @Html.TextBox("ValorTotalReceitasLiquidadas", @Model.ValorTotalReceitasLiquidadas.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas-pagas text-right" })
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 padding-div-fina">
+                        <div class="form-group form-group-sm margin-div-fina">
+                            <label class="control-label-sm" for="ValorTotalReceitasVencidas">Vencidas:</label>
+                            @Html.TextBox("ValorTotalReceitasVencidas", @Model.ValorTotalReceitasVencidas.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas-vencidas text-right" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

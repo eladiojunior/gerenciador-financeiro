@@ -6,6 +6,8 @@ using gfin.webapi.Negocio.Listeners;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using System.Text;
 using Microsoft.Extensions.Configuration;
 
 namespace gfin.webapi.Negocio
@@ -24,21 +26,14 @@ namespace gfin.webapi.Negocio
         /// <param name="usuario">Informações da usuario a ser registrada.</param>
         public UsuarioAcessoEntidadeControle RegistrarUsuario(UsuarioAcessoEntidadeControle usuarioAcessoEntidade)
         {
-            
+
+            ValidarEntidadeControle(usuarioAcessoEntidade.EntidadeControle);
+            ValidarUsuario(usuarioAcessoEntidade.UsuarioAcesso);
+
             //Inclusão de apenas uma usuario. 
             using (IUnitOfWork uofw = new UnitOfWork(GFinContext))
             {
 
-                ValidarEntidadeControle(usuarioAcessoEntidade.EntidadeControle);
-                usuarioAcessoEntidade.EntidadeControle.CodigoTipoSituacaoEntidade = (short)TipoSituacaoEnum.Ativo;
-                usuarioAcessoEntidade.EntidadeControle.DataHoraRegistro = DateTime.Now;
-            
-                ValidarUsuario(usuarioAcessoEntidade.UsuarioAcesso);
-                usuarioAcessoEntidade.UsuarioAcesso.CodigoTipoSituacaoUsuario = (short)TipoSituacaoEnum.Ativo;
-                usuarioAcessoEntidade.UsuarioAcesso.DataHoraRegistroUsuario = DateTime.Now;
-                usuarioAcessoEntidade.UsuarioAcesso.IsAlterarSenhaUsuario = false; //Não pedir para mudar a senha.
-                usuarioAcessoEntidade.UsuarioAcesso.IsConfirmacaoEmailUsuario = false; //Solicitar confirmação de e-mail.
-            
                 //Verificar se o usuário já possui uma entidade física (Minha Casa) como Responsável.
                 int qtdRegs = uofw.UsuarioAcessoEntidadeControle.QuantRegistros(uaec =>
                     uaec.UsuarioAcesso.EmailUsuario.Equals(usuarioAcessoEntidade.UsuarioAcesso.EmailUsuario) && 
@@ -48,21 +43,24 @@ namespace gfin.webapi.Negocio
                 {//Usuário já possui é responsável por uma entidade física (Minha Casa);
                     throw new NegocioException("Você já é responsável por uma entidade: Minha Casa, desculpe não será possível registra-lo.");
                 }
-
+                
+                usuarioAcessoEntidade.EntidadeControle.CodigoTipoSituacaoEntidade = (short)TipoSituacaoEnum.Ativo;
+                usuarioAcessoEntidade.EntidadeControle.DataHoraRegistro = DateTime.Now;
+                
                 usuarioAcessoEntidade.EntidadeControle = uofw.EntidadeControle.Incluir(usuarioAcessoEntidade.EntidadeControle);
-
-                usuarioAcessoEntidade.IdUsuarioAcesso = usuarioAcessoEntidade.UsuarioAcesso.Id;
-                if (usuarioAcessoEntidade.UsuarioAcesso.Id == 0)
-                {//Usuário ainda não registrado...
-                    //Gerar salt de senha...
-                    usuarioAcessoEntidade.UsuarioAcesso.SaltSenhaUsuario = UtilNegocio.GerarSaltPassword();
-                    string _senha = usuarioAcessoEntidade.UsuarioAcesso.SenhaUsuario;
-                    //Incluir novo usuário...
-                    usuarioAcessoEntidade.UsuarioAcesso.SenhaUsuario = UtilNegocio.GerarHashPassword(_senha, usuarioAcessoEntidade.UsuarioAcesso.SaltSenhaUsuario);
-                    usuarioAcessoEntidade.UsuarioAcesso = uofw.UsuarioSistema.Incluir(usuarioAcessoEntidade.UsuarioAcesso);
-                }
+                
+                usuarioAcessoEntidade.UsuarioAcesso.CodigoTipoSituacaoUsuario = (short)TipoSituacaoEnum.Ativo;
+                usuarioAcessoEntidade.UsuarioAcesso.DataHoraRegistroUsuario = DateTime.Now;
+                usuarioAcessoEntidade.UsuarioAcesso.IsAlterarSenhaUsuario = false; //Não pedir para mudar a senha.
+                usuarioAcessoEntidade.UsuarioAcesso.IsConfirmacaoEmailUsuario = false; //Solicitar confirmação de e-mail.
+                usuarioAcessoEntidade.UsuarioAcesso.SaltSenhaUsuario = UtilNegocio.GerarSaltPassword();
+                var _senha = usuarioAcessoEntidade.UsuarioAcesso.SenhaUsuario;
+                usuarioAcessoEntidade.UsuarioAcesso.SenhaUsuario = UtilNegocio.GerarHashPassword(_senha, usuarioAcessoEntidade.UsuarioAcesso.SaltSenhaUsuario);
+                
+                usuarioAcessoEntidade.UsuarioAcesso = uofw.UsuarioSistema.Incluir(usuarioAcessoEntidade.UsuarioAcesso);
                 
                 usuarioAcessoEntidade = uofw.UsuarioAcessoEntidadeControle.Incluir(usuarioAcessoEntidade);
+                
                 uofw.SalvarAlteracoes();
 
             }
@@ -114,18 +112,27 @@ namespace gfin.webapi.Negocio
         {
 
             //Recuperar mensagem para o envio.
-            var pathEmailConfirmacao =
-                $"{ClienteListener.MapPathAppServidor}\\Content\\html\\emailConfirmacaoUsuario.html";
-            var mensagemEmail = File.ReadAllText(pathEmailConfirmacao);
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceStream = assembly.GetManifestResourceStream("gfin.webapi.Resources.emailConfirmacaoUsuario.html");
+            var sb = new StringBuilder();
+            using (var sr = new StreamReader(resourceStream))
+            {
+                while (sr.Peek() >= 0)
+                {
+                    sb.Append(sr.ReadLine());
+                }
+            }
+
+            var mensagemEmail = sb.ToString(); 
 
             //Alterar parâmetros da mensagem.
             mensagemEmail = mensagemEmail.Replace("#DATA_ENVIO_EMAIL#", DateTime.Now.ToString("dd 'de' MMMM 'de' yyyy"));
             mensagemEmail = mensagemEmail.Replace("#NOME#", usuarioSistema.NomeUsuario);
-            string linkConfirmacaoEmail = _configuration.GetValue<String>("linkConfirmacaoUsuario");
+            var linkConfirmacaoEmail = _configuration.GetValue<string>("ConfigAplication:linkConfirmacaoUsuario");
             linkConfirmacaoEmail = string.Format(linkConfirmacaoEmail, UtilNegocio.Criptografar(usuarioSistema.Id.ToString()));
             mensagemEmail = mensagemEmail.Replace("#LINK_CONFIRMCAO_EMAIL#", linkConfirmacaoEmail);
 
-            string cidAnexo = "CID_IMG_CABECALHO_EMAIL";
+            var cidAnexo = "CID_IMG_CABECALHO_EMAIL";
             mensagemEmail = mensagemEmail.Replace("#IMG_CABECALHO_EMAIL#", cidAnexo);
 
             //Anexar imagem 'embedder'...

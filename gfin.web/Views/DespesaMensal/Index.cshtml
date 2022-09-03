@@ -1,0 +1,94 @@
+﻿@model GFin.Web.Models.DespesaMensalModel
+@{
+    ViewBag.Title = "Conta à Pagar Mensal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Registrar", "DespesaMensal", FormMethod.Post, new { @id = "formDespesaMensal" }))
+{
+    @Html.HiddenFor(model => model.IsDespesaLiquidada)
+    @Html.HiddenFor(model => model.IdVinculoFormaLiquidacao)
+    <div class="row">
+        <div class="col-md-5 col-xs-12">
+            <div class="form-group">
+                <label for="IdNaturezaDespesaMensal">Natureza Despesa</label>
+                <div class="input-group">
+                    @Html.DropDownListFor(model => model.IdNaturezaDespesaMensal, Model.DropboxNaturezaDespesa.Itens, new { @required = true, @class = "form-control" })
+                    <div class="input-group-btn"> 
+                        <a data-retornodropdown="IdNaturezaDespesaMensal" class="btn btn-default novaNaturezaDespesa" title="Nova natureza da despesa." aria-label="Nova"><i class="fa fa-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-6">
+            <div class="form-group">
+                <label for="CodigoFormaPagamentoDespesaMensal">Forma Liquidação</label>
+                @Html.DropDownListFor(model => model.CodigoFormaPagamentoDespesaMensal, Model.DropboxFormaLiquidacao.Itens, new { @required = true, @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+                <label for="IsDespesaMensalParcelada">Conta Parcelada?</label>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        @Html.CheckBoxFor(model => model.IsDespesaMensalParcelada, new { @id = "chkParcelada" })
+                    </span>
+                    @Html.TextBoxFor(model => model.QtdParcelasDespesa, new { @maxlength = 4, @alt = "numero", @type = "number", @min = "2", @max = "420", @readonly = true, @class = "form-control text-right", @placeholder = "Qtd de parcelas da despesa" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7 col-xs-12">
+            <div class="form-group">
+                <label for="TextoDescricaoDespesaMensal">Descrição Despesa</label>
+                @Html.TextBoxFor(m => m.TextoDescricaoDespesaMensal, new { @maxlength = 100, @required = true, @class = "form-control", @placeholder = "Texto da descrição da despesa" })
+            </div>
+        </div>
+        <div class="col-md-2 col-xs-6">
+            <div class="form-group">
+                <label for="DataVencimentoDespesa">Data Vencimento</label>
+                <div class='input-group date' id='dtpDataVencimentoDespesa'>
+                    @Html.TextBoxFor(m => m.DataVencimentoDespesa, String.Format("{0:d}", Model.DataVencimentoDespesa), new { @maxlength = 10, @alt = "data", @required = true, @class = "form-control text-center", @placeholder = "dd/mm/aaaa" })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+                <label for="ValorDespesa" id="labelValorDespesa">Valor Despesa</label>
+                @Html.TextBoxFor(m => m.ValorDespesa, new { @alt = "valor", @maxlength = "15", @required = true, @class = "form-control text-right", @placeholder = "Valor da despesa ou parcela" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="pull-right">
+                <button id="btnRegistrar" type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="registrarDespesaLiquidada"></div>
+    <div id="registrarDespesaParceladaComDinheiro"></div>
+    <div id="registrarDespesaComCartaoCredito"></div>
+    <div id="registrarDespesaComChequeAVista"></div>
+    <div id="registrarDespesaComChequePre"></div>
+    <div id="registrarDespesaComDebitoConta"></div>
+    <div id="registrarDespesaParceladaComCartaoCredito"></div>
+    <div id="registrarDespesaParceladaComChequePre"></div>
+    <div id="registrarDespesaParceladaComBoleto"></div>
+    <div id="registrarDespesaParceladaComFatura"></div>
+    <div id="registrarDespesaParceladaComDebitoConta"></div>
+}
+<div id="listaDespesaMensal">Carregar lista de despesas mensais...</div>
+<div id="removerDespesaMensal"></div>
+<div id="liquidarDespesaMensal"></div>
+<div id="detalharDespesaLiquidada"></div>
+<div id="listaDespesaMensalParceladas"></div>
+<div id="novaNaturezaDespesa"></div>
+@section ScriptPage {
+<script src="~/Content/site/js/ViewDespesaMensalLiquidar.js"></script>
+<script src="~/Content/site/js/ViewDespesaMensal.js"></script>
+<script src="~/Content/site/js/ModalNovaNaturezaConta.js"></script>
+}

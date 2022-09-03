@@ -1,0 +1,149 @@
+﻿@model GFin.Web.Models.Filtros.FiltroDespesaModel
+@{
+    int anoFiltro = Model.DataInicialFiltro.Year;
+    int mesFiltro = Model.DataInicialFiltro.Month;
+}
+<br />
+<div class="panel panel-default">
+    <div class="btn-group btn-group-justified visible-xs" role="group">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default filtroDespesas" data-filtro="01/12/@(anoFiltro - 1)" title="Voltar para Dezembro/@(anoFiltro - 1)">@(anoFiltro - 1)</button>
+        </div>
+        <div class="btn-group" role="group" style="width: 3%;">
+            <select id="DataInicialFiltro" class="form-control filtroDespesasSelect">
+            @foreach (SelectListItem item in Model.DropboxFiltroMesAno.Itens)
+            {
+                <option value="@item.Value" @(item.Selected?"selected":"")>@item.Text</option>
+            }
+            </select>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default filtroDespesas" data-filtro="01/01/@(anoFiltro + 1)" title="Ir para Janeiro/@(anoFiltro + 1)">@(anoFiltro + 1)</button>
+        </div>
+    </div>
+    <ul class="nav nav-pills nav-justified hidden-xs">
+        <li>
+            <a href="#" class="filtroDespesas" data-filtro="01/12/@(anoFiltro - 1)" title="Voltar para Dezembro/@(anoFiltro - 1)">
+                <span aria-hidden="true">@(anoFiltro - 1)</span>
+            </a>
+        </li>
+        @foreach (SelectListItem item in Model.DropboxFiltroMesAno.Itens)
+        {
+            DateTime dataFiltro = DateTime.Parse(item.Value);
+            bool hasAtivo = (dataFiltro.CompareTo(Model.DataInicialFiltro) == 0);
+            <li class="hidden-xs @(hasAtivo ? "active" : "")"><a href="#" class="filtroDespesas" data-filtro="@item.Value" title="@item.Text"><span class="visible-sm">@dataFiltro.Month</span><span class="hidden-sm">@GFin.Negocio.UtilNegocio.ConverterPrimeiraLetraEmMaiusculo(dataFiltro.ToString("MMM"))</span></a></li>
+        }
+        <li>
+            <a href="#" class="filtroDespesas" data-filtro="01/01/@(anoFiltro + 1)" title="Ir para Janeiro/@(anoFiltro + 1)">
+                <span aria-hidden="true">@(anoFiltro + 1)</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="hidden-xs hidden-sm">Natureza</th>
+            <th>Descrição<span class="hidden-xs hidden-sm"> Despesa</span></th>
+            <th class="text-center"><span class="hidden-xs hidden-sm">Data </span>Vencimento</th>
+            <th class="hidden-xs hidden-sm">Forma Liquidação</th>
+            <th class="text-center hidden-xs hidden-sm" colspan="2">Parcelada?</th>
+            <th class="text-center visible-xs visible-sm">Parc?</th>
+            <th class="text-right">Valor<span class="hidden-xs hidden-sm"> Despesa</span></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            GFin.Dados.Enums.TipoFormaLiquidacaoEnum enumFormaLiquidacao;
+            string textoFormaLiquidacao = "";
+            if (Model.DespesasMensais.Count == 0)
+            {
+                <tr>
+                    <td colspan="8">Nenhum registro de despesa mensal encontrado.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model.DespesasMensais)
+                {
+                    enumFormaLiquidacao = GFin.Dados.Enums.UtilEnum.GetFormaLiquidacao(item.CodigoTipoFormaLiquidacao);
+                    textoFormaLiquidacao = GFin.Dados.Enums.UtilEnum.GetTextoEnum(enumFormaLiquidacao);
+                    <tr>
+                        <td class="hidden-xs hidden-sm">@item.NaturezaContaDespesa.DescricaoNaturezaConta</td>
+                        <td>@item.DescricaoDespesa</td>
+                        <td class="text-center">@item.DataVencimentoDespesa.ToString("dd/MM/yyyy")</td>
+                        <td class="text-left hidden-xs hidden-sm">@textoFormaLiquidacao</td>
+                        <td class="text-right hidden-xs hidden-sm"><span title="@(item.IsDespesaParcelada ? "Exibir lista de parcelas vinculadas." : "Despesa não parcela.")">@(item.IsDespesaParcelada ? "Sim" : "Não")</span></td>
+                        <td class="text-left">@if (item.IsDespesaParcelada) {
+                            <a href="#" data-id="@item.Id" class="glyphicon glyphicon-th-list linkDetalharDespesaParcelada" title="Exibir lista de parcelas vinculadas."></a>
+                        }
+                        </td>
+                        <td class="text-right">@(item.IsDespesaLiquidada?(item.ValorTotalLiquidacaoDespesa.HasValue?item.ValorTotalLiquidacaoDespesa.Value.ToString("N"):"0,00"):item.ValorDespesa.ToString("N"))</td>
+                        <td class="text-center">
+                            <div class="btn-group dropup visible-xs">
+                                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    @if (item.IsDespesaLiquidada)
+                                    {
+                                        <li><a href="#" data-id="@item.Id" class="linkDetalharDespesaLiquidada" title="@string.Format("Despesa liquidada em {0}", item.DataHoraLiquidacaoDespesa.HasValue?item.DataHoraLiquidacaoDespesa.Value.ToString("dd/MM/yyyy"):"[Sem informação]")">Detalhar despesa</a></li>
+                                        <li><a href="#" data-id="@item.Id" class="linkEstornarDespesaLiquidada" title="Estornar despesa liquidada">Estornar despesa</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="#" data-id="@item.Id" class="linkLiquidarDespesa" title="Liquidar despesa mensal">Liquidar Despesa</a></li>
+                                        <li>@Html.ActionLink("Editar Despesa", "Editar", "DespesaMensal", new { @id = item.Id }, new { @title = "Editar despesa mensal" })</li>
+                                    }
+                                    <li><a href="#" data-id="@item.Id" class="linkRemoverDespesaMensal" title="Remover despesa mensal">Remover Despesa</a></li>
+                                </ul>
+                            </div>
+                            <div class="hidden-xs hidden-sm">
+                                @if (item.IsDespesaLiquidada)
+                                {
+                                    <a href="#" data-id="@item.Id" class="glyphicon glyphicon-ok linkDetalharDespesaLiquidada" title="@string.Format("Detalhar despesa liquidada em {0}", item.DataHoraLiquidacaoDespesa.HasValue?item.DataHoraLiquidacaoDespesa.Value.ToString("dd/MM/yyyy"):"[Sem informação]")"></a>
+                                    <span>&nbsp;</span>
+                                    <a href="#" data-id="@item.Id" class="glyphicon glyphicon-erase linkEstornarDespesaLiquidada" title="Estornar despesa liquidada"></a>
+                                }
+                                else
+                                {
+                                    <a href="#" data-id="@item.Id" class="glyphicon glyphicon-usd linkLiquidarDespesa" title="Liquidar despesa mensal"></a>
+                                    <span>&nbsp;</span>
+                                    @Html.ActionLink(" ", "Editar", "DespesaMensal", new { @id = item.Id }, new { @class = "glyphicon glyphicon-edit", @title = "Editar despesa mensal" })
+                                }
+                                <span>&nbsp;</span>
+                                <a href="#" data-id="@item.Id" class="glyphicon glyphicon-trash linkRemoverDespesaMensal" title="Remover despesa mensal"></a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+<hr />
+<div class="row">
+    <div class="col-md-3 col-xs-6">
+        <div class="form-group">
+            <label for="ValorTotalDespesa">Total Geral:</label>
+            @Html.TextBox("ValorTotalDespesa", @Model.ValorTotalDespesa.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas text-right" })
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-6">
+        <div class="form-group">
+            <label for="ValorTotalDespesaPagas">Total Pagas:</label>
+            @Html.TextBox("ValorTotalDespesaPagas", @Model.ValorTotalDespesaPagas.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas-pagas text-right" })
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-6">
+        <div class="form-group">
+            <label for="ValorTotalDespesaAbertas">Total Abertas:</label>
+            @Html.TextBox("ValorTotalDespesaAbertas", @Model.ValorTotalDespesaAbertas.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas-abertas text-right" })
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-6">
+        <div class="form-group">
+            <label for="ValorTotalDespesaVencidas">Total Vencidas:</label>
+            @Html.TextBox("ValorTotalDespesaVencidas", @Model.ValorTotalDespesaVencidas.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas-vencidas text-right" })
+        </div>
+    </div>
+</div>

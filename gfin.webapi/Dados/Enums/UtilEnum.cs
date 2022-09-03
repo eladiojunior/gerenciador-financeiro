@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace gfin.webapi.Dados.Enums
@@ -77,6 +78,24 @@ namespace gfin.webapi.Dados.Enums
             return isValid;
         }
 
+        /// <summary>
+        /// Retorna a lista de opçõe do Enum, com código e descrição.
+        /// </summary>
+        /// <param name="enumType">Enum para retorno da lista.</param>
+        /// <returns></returns>
+        public static List<string> ListaEnums(Type enumType)
+        {
+            var lista = new List<string>();
+            if (enumType == null) return lista;
+            foreach (var value in Enum.GetValues(enumType))
+            {
+                int codigo = (int)value;
+                string descricao = GetTextoEnum(value);
+                lista.Add($"{codigo}={descricao}");
+            }
+            return lista;
+        }
+        
         /// <summary>
         /// Recupera o texto do tipo de lançamento da conta;
         /// </summary>

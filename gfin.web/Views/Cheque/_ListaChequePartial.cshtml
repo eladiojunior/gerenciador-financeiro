@@ -1,0 +1,53 @@
+﻿@model GFin.Web.Models.Filtros.FiltroChequeModel
+@Html.HiddenFor(model => model.IdBancoAgenciaContaCorrente)
+<hr/>
+<div class="row">
+    <div class="col-md-offset-6 col-md-6 col-xs-12">
+        <div class="form-group">
+            <label class="control-label" for="CodigoSituacaoCheque">Filtro de Cheques</label>
+            @if (Model.DropboxTipoSituacaoCheque != null)
+            {
+                @Html.DropDownListFor(model => model.CodigoSituacaoCheque, Model.DropboxTipoSituacaoCheque.Itens, new { @class = "form-control", @title = "Situação do Cheque" })
+            }
+        </div>
+    </div>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Número do Cheque</th>
+            <th>Situação do Cheque</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.ListaCheques == null || Model.ListaCheques.Count == 0)
+        {
+            <tr><td colspan="3">Nenhum cheque encontrado para o filtro informado.</td></tr>
+        }
+        else 
+        { 
+            foreach (var item in Model.ListaCheques)
+            {
+            <tr class="@(item.CodigoSituacaoCheque==(short)GFin.Dados.Enums.TipoSituacaoChequeEnum.ChequeCancelado?"text-danger":"")">
+                <td>@item.NumeroCheque</td>
+                <td>@GFin.Dados.Enums.UtilEnum.GetTextoTipoSituacaoCheque(item.CodigoSituacaoCheque)</td>
+                <td class="text-center">
+                    <div class="btn-group dropup visible-xs">
+                        <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#" data-id="@item.Id" class="historicoCheque" title="Exibir o histório do cheque.">Histórico Cheque</a></li>
+                            <li><a href="#" data-id="@item.Id" class="cancelarCheque" title="Cancelar cheque.">Cancelar Cheque</a></li>
+                        </ul>
+                    </div>
+                    <div class="hidden-xs">
+                        <a href="#" data-id="@item.Id" class="glyphicon glyphicon-list-alt historicoCheque" title="Exibir o histório do cheque."></a>
+                        <span>&nbsp;</span>
+                        <a href="#" data-id="@item.Id" class="glyphicon glyphicon-remove cancelarCheque" title="Cancelar cheque."></a>
+                    </div>
+                </td>
+            </tr>
+            }
+        }
+    </tbody>
+</table>

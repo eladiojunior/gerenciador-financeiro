@@ -1,0 +1,89 @@
+﻿@model GFin.Web.Models.DespesaMensalParcelamentoListaModel
+<div class="modal fade" id="modalListarParcelamentoDespesa" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Lista de Parcelas vinculadas a Despesa Mensal</h4>
+            </div>
+            <div class="modal-body" style="height: 600px;overflow-y: auto;">
+                <div class="row mensagens">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="alert"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8 col-md-8">
+                        <div class="form-group">
+                            <label class="control-label" for="DescricaoTipoFormaLiquidacao">Forma Liquidação</label>
+                            @Html.TextBoxFor(model => model.DescricaoTipoFormaLiquidacao, new { @readonly = true, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-md-4">
+                        <div class="form-group">
+                            <label class="control-label" for="QtdParcelasDespesa">Qtd de Parcelas</label>
+                            @Html.TextBoxFor(model => model.QtdParcelasDespesa, new { @readonly = true, @class = "form-control text-center" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h4>Lista de Despesas vinculadas ao Parcelamento</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Parcela</th>
+                                    <th class="hidden-xs">Natureza</th>
+                                    <th class="hidden-xs">Descrição</th>
+                                    <th class="text-center"><span class="hidden-xs hidden-sm">Data </span>Vencimento</th>
+                                    <th class="text-center">Valor<span class="hidden-xs hidden-sm"> Parcela</span></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    decimal ValorTotalParcelamento = 0;
+                                    if (Model.ParcelasDespesa != null)
+                                    {
+                                        for (int i = 0; i < Model.ParcelasDespesa.Count; i++)
+                                        {
+                                            ValorTotalParcelamento += Model.ParcelasDespesa[i].ValorDespesa;
+                                            <tr @(Model.ParcelasDespesa[i].IsDespesaLiquidada?"class=success":"")>
+                                                <td class="text-center">@Model.ParcelasDespesa[i].NumeroParcelaDespesa</td>
+                                                <td class="hidden-xs">@Model.ParcelasDespesa[i].DescricaoNaturezaDespesaMensal</td>
+                                                <td class="hidden-xs">@Model.ParcelasDespesa[i].DescricaoDespesaMensal</td>
+                                                <td class="text-center">@Model.ParcelasDespesa[i].DataVencimentoDespesa.ToString("dd/MM/yyyy")</td>
+                                                <td class="text-right">@Model.ParcelasDespesa[i].ValorDespesa.ToString("n")</td>
+                                                <td class="text-center">
+                                                    @if (Model.ParcelasDespesa[i].IsDespesaLiquidada)
+                                                    {
+                                                        <a href="#" data-id="@Model.ParcelasDespesa[i].IdDespesaMensal" class="glyphicon glyphicon-ok linkDetalharDespesaLiquidada" title="@string.Format("Detalhar despesa liquidada em {0}", Model.ParcelasDespesa[i].DataLiquidacaoDespesa.HasValue?Model.ParcelasDespesa[i].DataLiquidacaoDespesa.Value.ToString("dd/MM/yyyy"):"[Sem informação]")"></a>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td class="hidden-xs">&nbsp;</td>
+                                    <td colspan="3" class="text-right"><strong>Valor Total do Parcelamento:</strong>&nbsp;</td>
+                                    <td>@Html.TextBox("ValorTotalParcelamento", @ValorTotalParcelamento.ToString("n"), new { @readonly = "readonly", @class = "form-control text-right" })</td>
+                                </tr>
+                            </tfoot>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>

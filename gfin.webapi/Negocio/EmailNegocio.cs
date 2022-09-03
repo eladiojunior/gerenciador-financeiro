@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Protocols;
 
@@ -37,8 +38,8 @@ namespace gfin.webapi.Negocio
         private EmailNegocio(IConfiguration configuration)
         {
             _configuration = configuration;
-            _remetenteEmail = _configuration.GetValue<String>("smtp_emailRemetente");
-            _remetenteNome = _configuration.GetValue<String>("smtp_nomeRemetente");
+            _remetenteEmail = _configuration.GetValue<String>("ConfigSMTP:smtp_emailRemetente");
+            _remetenteNome = _configuration.GetValue<String>("ConfigSMTP:smtp_nomeRemetente");
             _listEmailNaFila = new List<Email>();
             _listEmailForaDaFila = new List<Email>();
             //Definição do relógio para envio de e-mails na fila...
@@ -128,7 +129,7 @@ namespace gfin.webapi.Negocio
             if (string.IsNullOrEmpty(mensagemEmail))
                 throw new Erros.NegocioException("Mensagem do e-mail não informada.");
 
-            Email email = new Email();
+            var email = new Email();
             email.DestinatarioEmail = emailDestinatario;
             email.DestinatarioNome = nomeDestinatario;
             email.Assunto = assuntoEmail;
@@ -146,7 +147,7 @@ namespace gfin.webapi.Negocio
         /// Responsável pelo envio de e-mail;
         /// </summary>
         /// <param name="email">Informações para envio do e-mail.</param>
-        private void EnviarEmailSMTP(Email email)
+        private async Task EnviarEmailSMTP(Email email)
         {
 
             //Registrar a data da tentativa para evitar que seja enviada novamente.
@@ -179,7 +180,7 @@ namespace gfin.webapi.Negocio
                 }
 
                 //Recupera a conexão SMTP aberta ou cria uma nova.
-                GetSMTP().SendMailAsync(_email);
+                await GetSMTP().SendMailAsync(_email);
                 
                 //Remover da lista de e-mail.
                 _listEmailNaFila.Remove(email);
@@ -206,10 +207,10 @@ namespace gfin.webapi.Negocio
         {
             if (_smtp == null)
             {
-                string smtp_usuario = _configuration.GetValue<String>("smtp_usuario");
-                string smtp_senha = _configuration.GetValue<String>("smtp_senha");
-                string smtp_host = _configuration.GetValue<String>("smtp_host");
-                int smtp_port = _configuration.GetValue<int>("smtp_port");
+                string smtp_usuario = _configuration.GetValue<String>("ConfigSMTP:smtp_usuario");
+                string smtp_senha = _configuration.GetValue<String>("ConfigSMTP:smtp_senha");
+                string smtp_host = _configuration.GetValue<String>("ConfigSMTP:smtp_host");
+                int smtp_port = _configuration.GetValue<int>("ConfigSMTP:smtp_port");
                 _smtp = new SmtpClient(smtp_host, smtp_port);
                 if (!string.IsNullOrEmpty(smtp_usuario) && !string.IsNullOrEmpty(smtp_senha))
                 {

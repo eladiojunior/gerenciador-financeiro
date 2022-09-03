@@ -1,0 +1,82 @@
+﻿@model GFin.Web.Models.LoginUsuarioModel
+@{
+    ViewBag.Title = "Login do Usuário";
+    Layout = "~/Views/Shared/_LayoutBlank.cshtml";
+}
+<div class="row">
+    <div class="col-md-6 col-md-offset-1 col-sm-7 col-xs-12 text-right">
+        <h1 class="hidden-xs">Gerenciador Financeiro</h1>
+        <h2 class="visible-xs">Gerenciador Financeiro</h2>
+        <img src="~/Content/site/imgs/logo-inFourSys-reduzido.png" /><br /><br />
+        <div class="well well-sm hidden-xs">
+            Com o gerenciador financeiro, você realiza o controle financeiro pessoal e/ou de sua empresa de forma simples e eficiênte, controlando suas despesas, receitas, contas correntes, extratos, cheques, cartões e boletos, atualizando-os quanto necessário, tudo em uma só aplicação.<br /><br />
+            @Html.ActionLink("Quero experimentar o Gerenciador Financeiro!", "Cadastrar", "Usuario")
+        </div>
+        <div class="visible-xs text-center">
+            @Html.ActionLink("Quero experimentar o Gerenciador Financeiro!", "Cadastrar", "Usuario")<br /><br />
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-5 col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                @Html.ValidationSummary()
+                @using (Html.BeginForm("Login", "Usuario", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.RetornoUrl)
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="Email">E-mail</label>
+                                @Html.TextBoxFor(model => model.Email, new { @maxlength = 50, @type = "email", @required = true, @class = "form-control", @title = "Informe seu e-mail.", @placeholder = "Informe seu e-mail" })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="Senha">Senha</label>
+                                @Html.PasswordFor(model => model.Senha, new { @maxlength = 10, @required = true, @class = "form-control", @title = "Informe sua senha.", @placeholder = "Informe sua senha" })
+                                @Html.ValidationMessageFor(model => model.Senha)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="IdEntidade">Desejo controlar:</label>
+                                @Html.DropDownListFor(model => model.IdEntidade, (Model == null ? new List<SelectListItem>() : Model.DropboxEntidades.Itens), new { @required = true, @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IdEntidade)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-left">
+                                <div class="checkbox">
+                                    <label>@Html.CheckBoxFor(model => model.ManterConectado) Manter-se conectado</label>
+                                    <a href="#" class="help-manter-logado" data-toggle="popover" data-container="body" title="Manter-se conectado!" data-content="Para sua conveniência, mantenha esta opção selecionada. Em dispositivos compartilhados, recomendamos não utilizar." data-placement="top">
+                                        <i class="fa fa-question-circle"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <button id="btnAcessar" type="submit" class="btn btn-primary">Acessar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.ActionLink("Me ajude, esqueci minha senha.", "EsqueciMinhaSenha", "Usuario")<br />
+                            @Html.ActionLink("Não sou registrado, quero me registrar.", "Cadastrar", "Usuario")
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section ScriptPage {
+    <script src="~/Content/site/js/ViewUsuarioLogin.js"></script>
+}

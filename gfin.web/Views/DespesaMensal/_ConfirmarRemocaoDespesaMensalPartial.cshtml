@@ -1,0 +1,76 @@
+﻿@model GFin.Web.Models.DespesaMensalConfirmaRemocaoModel
+<form id="removerForm" onsubmit="return false;">
+    @Html.HiddenFor(model => model.IdDespesaMensal)
+    <div class="modal fade" id="modalConfirmarRemocaoDespesaMensal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Confirmar Remoção de Despesa Mensal</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row mensagens">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="alert"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="control-label" for="DescricaoNaturezaDespesaMensal">Natureza da Despesa</label>
+                                @Html.TextBoxFor(model => model.DescricaoNaturezaDespesaMensal, new { @readonly = true, @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="control-label" for="DescricaoTipoFormaLiquidacao">Forma Liquidação</label>
+                                @Html.TextBoxFor(model => model.DescricaoTipoFormaLiquidacao, new { @readonly = true, @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="control-label" for="TextoDescricaoDespesaMensal">Descrição da Despesa</label>
+                                @Html.TextBoxFor(model => model.TextoDescricaoDespesaMensal, new { @readonly = true, @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label class="control-label" for="DataVencimentoDespesa"><span class="hidden-xs">Data </span>Vencimento</label>
+                                @Html.TextBoxFor(model => model.DataVencimentoDespesa, new { @readonly = true, @class = "form-control text-center" })
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label class="control-label" for="ValorDespesa">Valor Despesa</label>
+                                @Html.TextBoxFor(model => model.ValorDespesa, new { @readonly = true, @class = "form-control text-right" })
+                            </div>
+                        </div>
+                    </div>
+                    @if (Model.HasDespesaParcelada == true)
+                    {
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="alert alert-warning">Essa despesa é parte de um parcelamento, com <strong>[@Model.QtdParcelas]</strong> parcelas vinculadas.</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.CheckBoxFor(m => m.HasRemoverParcelamento) <strong>Deseja remover TODAS as parcelas vinculadas a essa despesa?</strong>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-primary" id="btnConfirmarDespesa" title="Confirma a remoção da despesa mensal.">Confirmar</button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" title="Cancelar remoção da despesa mensal.">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

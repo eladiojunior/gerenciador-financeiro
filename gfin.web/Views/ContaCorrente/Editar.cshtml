@@ -1,0 +1,67 @@
+﻿@model GFin.Web.Models.ContaCorrenteModel
+
+@{
+    ViewBag.Title = "Editar Banco/Conta Corrente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Editar", "ContaCorrente", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.IdContaCorrente)
+    <div class="row">
+        <div class="col-md-2 col-xs-4">
+            <div class="form-group">
+                <label for="NumeroBanco">N.º Banco:</label>
+                @Html.TextBoxFor(model => model.NumeroBanco, new { @maxlength = 4, @alt = "numero", @required = true, @class = "form-control text-right", @placeholder = "Número de seu banco" })
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-8">
+            <div class="form-group">
+                <label for="NomeBanco">Nome do Banco:</label>
+                @Html.TextBoxFor(model => model.NomeBanco, new { @maxlength = 50, @required = true, @class = "form-control", @placeholder = "Nome de sua instituição bancária" })
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+                <label for="NumeroAgencia">N.º Agência<span class="hidden-xs"> e DV</span>:</label>
+                @Html.TextBoxFor(model => model.NumeroAgencia, new { @maxlength = 6, @required = true, @class = "form-control text-right", @placeholder = "Número de sua agência, com dígito verificador" })
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+                <label for="NumeroBanco">N.º Conta<span class="hidden-xs"> Corrente e DV</span>:</label>
+                @Html.TextBoxFor(model => model.NumeroContaCorrente, new { @maxlength = "15", @required = true, @class = "form-control text-right", @placeholder = "Número de sua conta corrente, com dígito verificador" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="form-group">
+                <label for="NomeTitular">Nome do Titular:</label>
+                @Html.TextBoxFor(model => model.NomeTitular, new { @maxlength = 80, @required = true, @class = "form-control", @placeholder = "Nome do titular da conta corrente" })
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+                <label for="ValorLimite">Valor Limite</label>
+                @Html.TextBoxFor(model => model.ValorLimite, new { @maxlength = "15", @alt = "valor", @required = true, @class = "form-control valor text-right", @placeholder = "Valor do limite da conta corrente" })
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <div class="checkbox"><br/>
+                <label>@Html.CheckBoxFor(model => model.IsContaCorrenteAtiva) Conta <span class="hidden-xs">Corrente</span> Ativa?</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="pull-right">
+                <button id="btnGravar" type="submit" class="btn btn-primary">Gravar</button>
+                @Html.ActionLink("Voltar", "Index", "ContaCorrente", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+<div id="listarContaCorrente">Carregar lista de contas correntes...</div>
+@section ScriptPage {
+    <script src="~/Content/site/js/ViewContaCorrente.js"></script>
+}

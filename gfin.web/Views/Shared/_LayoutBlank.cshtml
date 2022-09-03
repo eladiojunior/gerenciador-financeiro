@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>GFin - Gerenciador Financeiro</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="GFin - Gerenciador Financeiro vrs 1.0">
+    <meta name="author" content="Eladio Lima Magalhães Júnior [eladiojunior@gmail.com.br]">
+    <!-- Icones/imagens utilizados nos dispositivos -->
+    <link rel="icon" type="image/x-icon" href="@Url.Content("~/Content/site/imgs/inFourSys-32x32.ico")">
+    <link rel="shortcut icon" type="image/x-icon" href="@Url.Content("~/Content/site/imgs/inFourSys-32x32.ico")">
+    <link rel="apple-touch-icon-precomposed" href="@Url.Content("~/Content/site/imgs/logo-inFourSys-redondo.png")" />
+    <!-- Styles de frameworks utilizados -->
+    <link href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/bootstrap/css/bootstrap-theme.min.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/ionicons/css/ionicons.min.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/site/css/site.css")" rel="stylesheet" type="text/css">
+    @RenderSection("StylePage", required: false)
+    <!-- JavaScript de frameworks utilizados  -->
+    <!--[if lt IE 9]>
+    <script src="@Url.Content("~/Content/html5shiv/js/html5shiv.min.js")"></script>
+    <script src="@Url.Content("~/Content/respond/js/respond.min.js")"></script>
+    <![endif]-->
+</head>
+<body>
+    <!--[if lt IE 9]>
+    <br/><br/><br/><br/><br/>
+    <center>
+        <img src="@Url.Content("~/Content/site/imgs/logo-inFourSys-reduzido.png")"/>
+        <br/><br/>
+        <h4>Atenção: Atualize seu navegador para visualizar os serviços do GFin - Gerenciador Financeiro.</h4>
+        <h5>Nossos serviços são compatíveis com os navegadores: Internet Explorer, versão 9 ou superior, Safari, versão 5, Chrome e Firefox.</h5>
+        <h5>Outros navegadores podem funcionar, mas não foram realizados testes de compatibilidade.</h5>
+        <img src="@Url.Content("~/Content/site/imgs/browser-compatibility.png")" width="300"/>
+        <br/>
+    </center>
+    <style type="text/css">
+        .wrapper { display: none; }
+        .container-fluid { display: none; }
+    </style>
+    <![endif]-->
+    <div class="container-fluid">
+        @{
+            var msg = TempData["alertaMensagem"] as string;
+            if (!string.IsNullOrEmpty(msg))
+            {
+                var tipo = (Int16)TempData["alertaTipo"];
+                string strTipo = "info";
+                switch (tipo)
+                {
+                    case 1: strTipo = "info"; break;
+                    case 2: strTipo = "warning"; break;
+                    case 9: strTipo = "danger"; break;
+                }
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="alert alert-@strTipo">@msg</div>
+                    </div>
+                </div>
+            }
+        }
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <br />
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <!-- INICIO --- JavaScript de frameworks utilizados -->
+    <script src="@Url.Content("~/Content/jquery/js/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="@Url.Content("~/Content/assets/js/ie10-viewport-bug-workaround.js")"></script>
+    <script src="@Url.Content("~/Content/jquery-mask/js/jquery.mask.js")"></script>
+    <script src="@Url.Content("~/Content/site/js/site.js")" type="text/javascript" charset="us-ascii"></script>
+    @RenderSection("ScriptPage", required: false)
+    <!-- FINAL --- JavaScript de frameworks utilizados -->
+
+</body>
+</html>

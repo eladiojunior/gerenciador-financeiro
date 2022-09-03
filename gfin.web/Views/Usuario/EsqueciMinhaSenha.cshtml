@@ -1,0 +1,56 @@
+﻿@model GFin.Web.Models.UsuarioRecuperarSenhaModel
+@{
+    ViewBag.Title = "Esqueci minha senha";
+    Layout = "~/Views/Shared/_LayoutBlank.cshtml";
+}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 text-right">
+        <h1 class="hidden-xs">Gerenciador Financeiro</h1>
+        <h2 class="visible-xs">Gerenciador Financeiro</h2>
+        <img src="~/Content/site/imgs/logo-inFourSys-reduzido.png" /><br /><br />
+        <div class="well well-sm hidden-xs">
+            <h4><strong>Problema com o acesso?</strong><br/>Siga as instruções para recuperar seu acesso.</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                @Html.ValidationSummary()
+                @using (Html.BeginForm("RecuperarSenha", "Usuario", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-12 col-sd-12 col-xs-12">
+                            <p>Digite seu e-mail registrado e enviaremos instruções para recuperação de seu acesso.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sd-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="Email">E-mail registrado</label>
+                                @Html.TextBoxFor(model => model.Email, new { @maxlength = 50, @type = "email", @required = true, @class = "form-control", @title = "Informe seu e-mail.", @placeholder = "Informe seu e-mail" })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sd-12 col-xs-12">
+                            <div class="pull-right">
+                                <button id="btnRecuperar" type="submit" class="btn btn-primary">Recuperar</button>
+                                @Html.ActionLink("Voltar", "Login", "Usuario", null, new { @class = "btn btn-default" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sd-12 col-xs-12">
+                            <p><strong>Não tem ou não sabe seu endereço de e-mail registrado?</strong></p>
+                            @Html.ActionLink("Fale com o suporte.", "FaleConosco", "Home")
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

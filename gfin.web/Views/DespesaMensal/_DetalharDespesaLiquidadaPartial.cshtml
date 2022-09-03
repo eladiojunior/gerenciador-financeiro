@@ -1,0 +1,91 @@
+﻿@model GFin.Web.Models.DetalheDespesaLiquidadaModel
+@Html.HiddenFor(model => model.IdDespesaMensal, new { @id = "IdDespesaMensalLiquidada" })
+<div class="modal fade" id="modalDetalharDespesaLiquidada" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Detalhar Despesa Liquidada</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row mensagens">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="alert"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="DescricaoNaturezaDespesaMensal">Natureza da Despesa</label>
+                            @Html.TextBoxFor(model => model.DescricaoNaturezaDespesaMensal, new { @readonly = true, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="DescricaoTipoFormaLiquidacao">Forma Liquidação</label>
+                            @Html.TextBoxFor(model => model.DescricaoTipoFormaLiquidacao, new { @readonly = true, @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label" for="TextoDescricaoDespesaMensal">Descrição da Despesa</label>
+                            @Html.TextBoxFor(model => model.TextoDescricaoDespesaMensal, new { @readonly = true, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label" for="DataVencimentoDespesa">Data de Vencimento</label>
+                            @Html.TextBoxFor(model => model.DataVencimentoDespesa, new { @readonly = true, @class = "form-control text-center" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label" for="ValorDespesa">Valor da Despesa</label>
+                            @Html.TextBoxFor(model => model.ValorDespesa, new { @readonly = true, @class = "form-control text-right" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label" for="DataLiquidacaoDespesa">Data de Liquidação</label>
+                            @Html.TextBoxFor(model => model.DataLiquidacaoDespesa, new { @readonly = true, @class = "form-control text-center" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label" for="ValorDescontoLiquidacaoDespesa">Desconto Liquidação</label>
+                            @Html.TextBoxFor(model => model.ValorDescontoLiquidacaoDespesa, new { @readonly = true, @class = "form-control text-right" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label" for="ValorMultaJurosLiquidacaoDespesa">Juros/Multa Liquidação</label>
+                            @Html.TextBoxFor(model => model.ValorMultaJurosLiquidacaoDespesa, new { @readonly = true, @class = "form-control text-right" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label" for="ValorTotalLiquidacaoDespesa">Valor Total Liquidação</label>
+                            @Html.TextBoxFor(model => model.ValorTotalLiquidacaoDespesa, new { @readonly = true, @class = "form-control text-right" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label class="control-label" for="TextoObservacaoLiquidacaoDespesa">Observação da Liquidação</label>
+                            @Html.TextAreaFor(model => model.TextoObservacaoLiquidacaoDespesa, new { @rows = "3", @readonly = true, @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnEstornarDespesaLiquidada" type="button" class="btn btn-sm btn-primary" title="Realizar o estorno da despesa liquidada.">Estornar</button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" title="Fechar detalhes da despesa liquidada.">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

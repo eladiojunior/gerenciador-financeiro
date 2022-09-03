@@ -1,0 +1,15 @@
+﻿@model GFin.Web.Models.DespesaMensalModel
+@{
+    ViewBag.Title = "Lista de Contas Mensal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="listaContasMensal">Carregar lista de contas mensais...</div>
+<div id="liquidarDespesaMensal"></div>
+<div id="detalharDespesaLiquidada"></div>
+<div id="liquidarReceitaMensal"></div>
+<div id="detalharReceitaLiquidada"></div>
+@section ScriptPage {
+<script src="~/Content/site/js/ViewReceitaMensalLiquidar.js"></script>
+<script src="~/Content/site/js/ViewDespesaMensalLiquidar.js"></script>
+<script src="~/Content/site/js/ViewContasMensal.js"></script>
+}

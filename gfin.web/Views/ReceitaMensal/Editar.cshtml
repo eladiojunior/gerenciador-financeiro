@@ -1,0 +1,65 @@
+﻿@model GFin.Web.Models.ReceitaMensalModel
+@{
+    ViewBag.Title = "Conta à Receber Mensal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Editar", "ReceitaMensal", FormMethod.Post, new { @id = "formReceitaMensal" }))
+{
+    @Html.HiddenFor(model => model.IdReceitaMensal)
+    @Html.HiddenFor(model => model.IsReceitaRecebida)
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-sm-6 col-lg-6">
+            <div class="form-group">
+                <label for="IdNaturezaReceitaMensal">Natureza da Receita</label>
+                <div class="input-group">
+                    @Html.DropDownListFor(model => model.IdNaturezaReceitaMensal, Model.DropboxNaturezaReceita.Itens, new { @required = true, @class = "form-control" })
+                    <div class="input-group-btn"> 
+                        <a data-retornodropdown="IdNaturezaReceitaMensal" class="btn btn-default novaNaturezaReceita" title="Nova natureza da receita."><i class="fa fa-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6 col-sm-6 col-lg-6">
+            <div class="form-group">
+                <label for="CodigoFormaRecebimentoReceitaMensal">Forma Recebimento</label>
+                @Html.DropDownListFor(model => model.CodigoFormaRecebimentoReceitaMensal, Model.DropboxFormaRecebimento.Itens, new { @required = true, @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-7 col-sm-7 col-lg-7">
+            <div class="form-group">
+                <label for="TextoDescricaoReceitaMensal">Descrição Receita</label>
+                @Html.TextBoxFor(m => m.TextoDescricaoReceitaMensal, new { @maxlength = 100, @required = true, @class = "form-control", @placeholder = "Texto da descrição da despesa" })
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-2 col-sm-2 col-lg-2">
+            <div class="form-group">
+                <label for="DataRecebimentoReceita">Data Recebimento</label>
+                <div class='input-group date' id='dtpDataRecebimentoReceita'>
+                    @Html.TextBoxFor(m => m.DataRecebimentoReceita, String.Format("{0:d}", Model.DataRecebimentoReceita), new { @required = true, @maxlength = 10, @alt = "data", @class = "form-control text-center", @placeholder = "dd/mm/aaaa" })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-3 col-sm-3 col-lg-3">
+            <div class="form-group">
+                <label for="ValorReceita">Valor Receita</label>
+                @Html.TextBoxFor(m => m.ValorReceita, new { @maxlength = "15", @alt = "valor", @required = true, @class = "form-control text-right", @placeholder = "Valor da receita" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+            <div class="pull-right">
+                <button id="btnGravar" type="submit" class="btn btn-primary">Gravar</button>
+                @Html.ActionLink("Voltar", "Index", "ReceitaMensal", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+@section ScriptPage {
+    <script src="~/Content/site/js/ViewReceitaMensalEditar.js"></script>
+}

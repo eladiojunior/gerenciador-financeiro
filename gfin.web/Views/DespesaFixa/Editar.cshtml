@@ -1,0 +1,58 @@
+﻿@model GFin.Web.Models.DespesaFixaModel
+
+@{
+    ViewBag.Title = "Editar Despesas Fixa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Editar", "DespesaFixa", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.IdDespesaFixa)
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="form-group">
+                <label for="IdNaturezaContaDespesaFixa">Natureza da Despesa:</label>
+                @Html.DropDownListFor(model => model.IdNaturezaContaDespesaFixa, Model.DropboxNaturezaDespesa.Itens, new { @required = true, @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-2 col-xs-5">
+            <div class="form-group">
+                <label for="NumeroDiaVencimentoDespesaFixa">Venciamento:</label>
+                @Html.DropDownListFor(model => model.NumeroDiaVencimentoDespesaFixa, Model.DropboxDiaVencimento.Itens, new { @required = true, @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-7">
+            <div class="form-group">
+                <label for="ValorDespesaFixa">Valor da Despesa:</label>
+                @Html.TextBoxFor(model => model.ValorDespesaFixa, new { @maxlength = "15", @alt = "valor", @required = true, @class = "form-control valor text-right", @placeholder = "Valor da despesa fixa" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-xs-12">
+            <div class="form-group">
+                <label for="TextoDescricaoDespesaFixa">Descrição da Despesa Fixa:</label>
+                @Html.TextBoxFor(m => m.TextoDescricaoDespesaFixa, new { @required = true, @class = "form-control", @placeholder = "Texto da descrição da despesa fixa" })
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <div class="form-group">
+                <label for="CodigoFormaPagamentoDespesaMensal">Forma de Liquidação:</label>
+                @Html.DropDownListFor(model => model.CodigoTipoFormaLiquidacao, Model.DropboxFormaLiquidacao.Itens, new { @required = true, @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="pull-right">
+                <button id="btnGravar" type="submit" class="btn btn-primary" title="Gravar alterações da despesa fixa.">Gravar</button>
+                @Html.ActionLink("Voltar", "Index", "DespesaFixa", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+<div id="listaDespesaFixa">Carregar lista de despesas fixa...</div>
+<div id="historicoDespesaFixa"></div>
+@section ScriptPage {
+<script src="~/Content/site/js/ViewDespesaFixa.js"></script>
+<script src="~/Content/chart/js/chart.min.js"></script>
+}

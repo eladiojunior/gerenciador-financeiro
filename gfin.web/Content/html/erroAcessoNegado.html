@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Acesso Negado</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="GFin - Gerenciador Financeiro vrs 1.0">
+    <meta name="author" content="Eladio Lima Magalhães Júnior [eladiojunior@gmail.com.br]">
+    <!-- Icones/imagens utilizados nos dispositivos -->
+    <link rel="icon" type="image/x-icon" href="../site/imgs/inFourSys-32x32.ico"/>
+    <link rel="apple-touch-icon-precomposed" href="../site/imgs/logo-inFourSys-redondo.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="../site/imgs/inFourSys-32x32.ico"/>
+    <!-- Styles de frameworks utilizados -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../site/css/site.css" rel="stylesheet"/>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="../assets/js/ie8-responsive-file-warning.js"></script>
+    <script src="../html5shiv/js/html5shiv.min.js"></script>
+    <script src="../respond/js/respond.min.js"></script>
+    <![endif]-->
+    <script src="../assets/js/ie-emulation-modes-warning.js"></script>
+</head>
+<body>
+    <div class="painelErro col-md-5 col-xs-12 col-sm-7">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <span class="panel-title"><strong>Acesso Negado</strong></span>
+            </div>
+            <div class="panel-body">
+                <img src="../site/imgs/acesso-negado.png" width="250" class="center-block">
+                <p class="text-center"><strong>Verificamos e identificamos que você não possue acesso a esse conteúdo.</strong><br /><br /><a href="/Home/Index" title="Clique para voltar a página inicial.">Voltar a Página Inicial</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript de frameworks utilizados -->
+    <script src="../jquery/js/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        PopularObjetosQueryString();
+        if (queryObj["Id"] != undefined && queryObj["dataHora"] != undefined) {
+            $("#dvDetalhamentoErro").html("[" + queryObj["Id"] + "] Data/Hora: " + queryObj["dataHora"]);
+        }
+    </script>
+</body>
+</html>

@@ -1,6 +1,8 @@
-# Projeto de Web API do Gerenciador Financeiro
+# Gerenciador Financeiro (Backend)
+Projeto em Web API .NET Core 3.0 com a implementação da camada de backend do Gerenciador Financeiro.
 
-Projeto em .NET Core 3.0 com a implementação da camada de backend do Gerenciador Financeiro.
+## Autenticação e Autorização
+Nesta solução iremos utilizar um processo de registro de usuário para utilização na aplicação e utilização para consumo das demais API's, após autenticação que irá retornar um TokenJWT para utilização dentro do backend.
 
 # Executando a WebAPI em Docker
 

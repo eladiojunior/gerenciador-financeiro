@@ -1,0 +1,36 @@
+﻿@model GFin.Web.Models.NaturezaContaModel
+
+@{
+    ViewBag.Title = "Editar Natureza da Conta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Editar", "NaturezaConta", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.IdNaturezaConta)
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="CodigoTipoLancamentoConta">Tipo Natureza:</label>
+                @Html.DropDownListFor(model => model.CodigoTipoLancamentoConta, Model.DropboxTipoLancamentoConta.Itens, new { @required = true, @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="DescricaoNaturezaConta">Descrição da Natureza:</label>
+                @Html.TextBoxFor(model => model.DescricaoNaturezaConta, new { @maxlength = 100, @required = true, @class = "form-control", @placeholder = "Descrição da natureza da conta" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <button id="btnGravar" type="submit" class="btn btn-primary">Gravar</button>
+                @Html.ActionLink("Voltar", "Index", "NaturezaConta", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+<div id="listarNaturezaConta">Carregar lista de natureza da conta...</div>
+@section ScriptPage {
+    <script src="~/Content/site/js/ViewNaturezaConta.js"></script>
+}

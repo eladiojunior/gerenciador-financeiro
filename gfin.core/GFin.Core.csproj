@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{52AE5BF2-163F-4C3F-B497-3E89EDB2C44A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GFin.Core</RootNamespace>
+    <AssemblyName>GFin.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Azure|AnyCPU'">
+    <OutputPath>bin\Azure\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dados\Context\QueryableExtension.cs" />
+    <Compile Include="Dados\ConviteCompartilhamentoDAO.cs" />
+    <Compile Include="Dados\Enums\TipoOperacaoHistoricoUsuarioEnum.cs" />
+    <Compile Include="Dados\Enums\TipoPermissaoCompartilhamentoEnum.cs" />
+    <Compile Include="Dados\Enums\TipoPerfilAcessoUsuarioEnum.cs" />
+    <Compile Include="Dados\Enums\TipoEntidadeControleEnum.cs" />
+    <Compile Include="Dados\Enums\TipoSituacaoProcessoEnum.cs" />
+    <Compile Include="Dados\Enums\TipoProcessoAutomaticoEnum.cs" />
+    <Compile Include="Dados\Models\ConviteCompartilhamento.cs" />
+    <Compile Include="Dados\ProcessoAutomaticoDAO.cs" />
+    <Compile Include="Dados\HistoricoSituacaoProcessoDAO.cs" />
+    <Compile Include="Dados\LancamentoExtratoBancarioDAO.cs" />
+    <Compile Include="Dados\ExtratoBancarioDAO.cs" />
+    <Compile Include="Dados\ChequeResgatadoDAO.cs" />
+    <Compile Include="Dados\ChequeEmitidoDAO.cs" />
+    <Compile Include="Dados\ChequeDevolvidoDAO.cs" />
+    <Compile Include="Dados\ChequeCompensadoDAO.cs" />
+    <Compile Include="Dados\ChequeCanceladoDAO.cs" />
+    <Compile Include="Dados\ChequeDAO.cs" />
+    <Compile Include="Dados\ContaCorrenteDAO.cs" />
+    <Compile Include="Dados\CartaoCreditoDAO.cs" />
+    <Compile Include="Dados\Context\ListaPaginada.cs" />
+    <Compile Include="Dados\CorrentistaDAO.cs" />
+    <Compile Include="Dados\Enums\TipoFormaLiquidacaoEnum.cs" />
+    <Compile Include="Dados\Enums\TipoSituacaoCartaoCreditoEnum.cs" />
+    <Compile Include="Dados\Enums\TipoSituacaoChequeEnum.cs" />
+    <Compile Include="Dados\Enums\UtilEnum.cs" />
+    <Compile Include="Dados\HistoricoDespesaFixaDAO.cs" />
+    <Compile Include="Dados\Enums\TipoSituacaoEnum.cs" />
+    <Compile Include="Dados\Enums\TipoLancamentoEnum.cs" />
+    <Compile Include="Dados\Enums\TipoFormaRecebimentoEnum.cs" />
+    <Compile Include="Dados\Context\IUnitOfWork.cs" />
+    <Compile Include="Dados\Context\GFinContext.cs" />
+    <Compile Include="Dados\Models\CartaoCredito.cs" />
+    <Compile Include="Dados\Models\Cheque.cs" />
+    <Compile Include="Dados\Models\ChequeCancelado.cs" />
+    <Compile Include="Dados\Models\ChequeCompensado.cs" />
+    <Compile Include="Dados\Models\ChequeDevolvido.cs" />
+    <Compile Include="Dados\Models\ChequeEmitido.cs" />
+    <Compile Include="Dados\Models\ChequeResgatado.cs" />
+    <Compile Include="Dados\Models\ContaCorrente.cs" />
+    <Compile Include="Dados\Models\Correntista.cs" />
+    <Compile Include="Dados\Models\DespesaMensalParcelada.cs" />
+    <Compile Include="Dados\Models\EntidadeControle.cs" />
+    <Compile Include="Dados\Models\ExtratoBancarioConta.cs" />
+    <Compile Include="Dados\Models\HistoricoSituacaoProcesso.cs" />
+    <Compile Include="Dados\Models\HistoricoUsuario.cs" />
+    <Compile Include="Dados\Models\HistoricoDespesaFixa.cs" />
+    <Compile Include="Dados\Models\LancamentoExtratoBancario.cs" />
+    <Compile Include="Dados\EntidadeControleDAO.cs" />
+    <Compile Include="Dados\Models\ProcessoAutomatico.cs" />
+    <Compile Include="Dados\Models\UsuarioAcessoEntidadeControle.cs" />
+    <Compile Include="Dados\ReceitaMensalDAO.cs" />
+    <Compile Include="Dados\ReceitaFixaDAO.cs" />
+    <Compile Include="Dados\Models\DespesaFixa.cs" />
+    <Compile Include="Dados\Models\DespesaMensal.cs" />
+    <Compile Include="Dados\Models\NaturezaConta.cs" />
+    <Compile Include="Dados\Models\ReceitaFixa.cs" />
+    <Compile Include="Dados\Models\ReceitaMensal.cs" />
+    <Compile Include="Dados\Models\UsuarioSistema.cs" />
+    <Compile Include="Dados\Context\UnitOfWork.cs" />
+    <Compile Include="Dados\UsuarioAcessoEntidadeControleDAO.cs" />
+    <Compile Include="Dados\HistoricoUsuarioDAO.cs" />
+    <Compile Include="Dados\UsuarioSistemaDAO.cs" />
+    <Compile Include="Dados\DespesaFixaDAO.cs" />
+    <Compile Include="Dados\DespesaMensalDAO.cs" />
+    <Compile Include="Dados\Erros\DAOException.cs" />
+    <Compile Include="Dados\Context\GenericDAO.cs" />
+    <Compile Include="Dados\Context\IGenericDAO.cs" />
+    <Compile Include="Dados\NaturezaContaDAO.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Negocio\ChequeNegocio.cs" />
+    <Compile Include="Negocio\ContaCorrenteNegocio.cs" />
+    <Compile Include="Negocio\CartaoCreditoNegocio.cs" />
+    <Compile Include="Negocio\ConviteCompartilhamentoNegocio.cs" />
+    <Compile Include="Negocio\CorrentistaNegocio.cs" />
+    <Compile Include="Negocio\DTOs\ContasMensaisDTO.cs" />
+    <Compile Include="Negocio\DTOs\TotalReceitaMensalDTO.cs" />
+    <Compile Include="Negocio\DTOs\TotalDespesaMensalDTO.cs" />
+    <Compile Include="Negocio\EmailNegocio.cs" />
+    <Compile Include="Negocio\Listeners\IClienteListener.cs" />
+    <Compile Include="Negocio\Listeners\IUsuarioLogado.cs" />
+    <Compile Include="Negocio\ProcessoAutomaticoNegocio.cs" />
+    <Compile Include="Negocio\UsuarioNegocio.cs" />
+    <Compile Include="Negocio\Filtros\FiltroReceitaMensal.cs" />
+    <Compile Include="Negocio\Filtros\FiltroDespesaMensal.cs" />
+    <Compile Include="Negocio\GenericNegocio.cs" />
+    <Compile Include="Negocio\EntidadeControleNegocio.cs" />
+    <Compile Include="Negocio\ReceitaNegocio.cs" />
+    <Compile Include="Negocio\DespesaNegocio.cs" />
+    <Compile Include="Negocio\Erros\NegocioException.cs" />
+    <Compile Include="Negocio\NaturezaNegocio.cs" />
+    <Compile Include="Negocio\UtilNegocio.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

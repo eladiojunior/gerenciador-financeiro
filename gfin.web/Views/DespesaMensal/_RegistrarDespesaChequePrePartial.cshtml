@@ -1,0 +1,65 @@
+﻿@model GFin.Web.Models.DespesaMensalChequeModel
+<div class="modal fade" id="modalRegistrarDespesaChequePre" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Registrar Despesa - Cheque Pré-Datado</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row mensagens">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="alert"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label class="control-label" for="IdBancoAgenciaContaCorrente">Banco / Agência / Conta Corrente</label>
+                            @if (Model.DropboxBancoAgenciaContaCorrente != null)
+                            {
+                                @Html.DropDownListFor(model => model.IdBancoAgenciaContaCorrente, Model.DropboxBancoAgenciaContaCorrente.Itens, new { @required = true, @class = "form-control", @title = "Banco/Agência/Conta Corrente" })
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label" for="FormaPagamentoDespesaMensal">Forma Liquidação</label>
+                            @Html.TextBoxFor(model => model.FormaPagamentoDespesaMensal, new { @readonly = true, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6">
+                        <div class="form-group">
+                            <label class="control-label" for="DataVencimentoDespesa">Data Vencimento</label>
+                            @Html.TextBoxFor(model => model.DataVencimentoDespesa, new { @required = true, @maxlength = 10, @alt = "data", @class = "form-control text-center" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6">
+                        <div class="form-group">
+                            <label class="control-label" for="NumeroCheque"><span class="hidden-xs">Número </span>Cheque</label>
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.NumeroCheque, new Dictionary<string, Object> { { "required", "true" }, { "maxlength", "8" }, { "alt", "numero-cheque" }, { "class", "form-control text-center" }, { "title", "Número do Cheque Pré-Datado" }, { "data-id-cheque", "0" }, { "data-numero-cheque", Model.NumeroCheque }, { "data-numero-cheque-utilizavel", "false" } })
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default verificarSituacaoNumeroCheque" type="button" title="Verifica a situação do número do cheque.">
+                                        <span class="glyphicon glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <span class="situacaoChequePre" data-numero-cheque="0" data-id-cheque="0" data-numero-cheque-utilizavel="false">Informe uma conta corrente e o número de cheque.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnRegistrarDespesaChequePre" type="button" class="btn btn-sm btn-primary">Registrar</button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+﻿@model GFin.Web.Models.ReenviarConfirmacaoUsuarioModel
+@{
+    ViewBag.Title = "Reenvio de Confirmação de Registro";
+    Layout = "~/Views/Shared/_LayoutBlank.cshtml";
+}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 text-right">
+        <h1 class="hidden-xs">Gerenciador Financeiro</h1>
+        <h2 class="visible-xs">Gerenciador Financeiro</h2>
+        <img src="~/Content/site/imgs/logo-inFourSys-reduzido.png" /><br /><br />
+        <div class="well well-sm text-left">
+            <h4>Pronto! @Model.Nome</h4>
+            <p>Reenviamos um e-mail para você: <strong>@Model.Email</strong>, por favor acesso sua caixa de e-mail e confirme seu registro clicando no link encaminhado.</p><br />
+            <p>Atenciosamente, <br />Equipe da inFourSys - Soluções para humanos.</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        <div class="text-center">
+            @Html.ActionLink("Realizar Login", "Login", "Usuario", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>
+

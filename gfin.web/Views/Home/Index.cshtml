@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12 col-xs-12" id="divGrafico"></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="panel panel-danger">
+            <div class="panel-heading">Despesas do mês <strong>[@DateTime.Now.ToString("MM/yyyy")]</strong>
+                <div class="pull-right">
+                    @Html.ActionLink("Todas", "Index", "DespesaMensal", null, new { @title = "Listar todas as despesas mensais.", @class = "btn btn-danger btn-xs hidden-xs" })
+                    <a href="#" id="linkRegistrarNovaDespesa" title="Criar nova despesa mensal rapidamente." class="btn btn-danger btn-xs">Nova</a>
+                </div>
+            </div>
+            <div id="listaDespesas">Despesas...</div>
+            <div id="liquidarDespesaMensal"></div>
+            <div id="novaDespesaMensal"></div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">Receitas do mês <strong>[@DateTime.Now.ToString("MM/yyyy")]</strong>
+                <div class="pull-right">
+                    @Html.ActionLink("Todas", "Index", "ReceitaMensal", null, new { @title = "Listar todas as receitas mensais.", @class = "btn btn-info btn-xs hidden-xs" })&nbsp;
+                    <a href="#" id="linkRegistrarNovaReceita" title="Criar nova receita mensal rapidamente." class="btn btn-info btn-xs">Nova</a>
+                </div>
+            </div>
+            <div id="listaReceitas">Receitas...</div>
+            <div id="liquidarReceitaMensal"></div>
+            <div id="novaReceitaMensal"></div>
+        </div>
+    </div>
+</div>
+@section ScriptPage {
+<script src="~/Content/chart/js/chart.min.js"></script>
+<script src="~/Content/site/js/ViewReceitaMensalLiquidar.js"></script>
+<script src="~/Content/site/js/ViewReceitaMensalRegistrar.js"></script>
+<script src="~/Content/site/js/ViewDespesaMensalLiquidar.js"></script>
+<script src="~/Content/site/js/ViewDespesaMensalRegistrar.js"></script>
+<script src="~/Content/site/js/ViewHome.js"></script>
+}
