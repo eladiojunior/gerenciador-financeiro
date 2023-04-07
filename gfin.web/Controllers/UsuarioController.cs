@@ -707,7 +707,7 @@ namespace GFin.Web.Controllers
             {
                 AppLogger.Log.Get().LogError(erro, "AlterarSenhaUsuarioLogado");
                 ModelState.AddModelError(string.Empty, "Desculpe, não foi possível abrir tela de redefinição de senha.");
-                return View("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
         }
@@ -796,7 +796,7 @@ namespace GFin.Web.Controllers
             {
                 AppLogger.Log.Get().LogError(erro, "AlterarDadosUsuarioLogado");
                 ModelState.AddModelError(string.Empty, "Desculpe, não foi possível abrir tela de alteração dos dados do usuário.");
-                return View("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
         }

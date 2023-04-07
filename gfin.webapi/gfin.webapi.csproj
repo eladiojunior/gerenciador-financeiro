@@ -17,5 +17,9 @@
         <EmbeddedResource Include="Resources\emailRecuperacaoSenhaUsuario.html" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="obj" />
+    </ItemGroup>
+
 
 </Project>
