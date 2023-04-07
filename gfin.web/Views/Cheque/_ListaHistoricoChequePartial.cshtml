@@ -1,0 +1,71 @@
+﻿@model GFin.Web.Models.HistoricoChequeModel
+<div class="modal fade" id="modalHistoricoCheque" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Histórico de Cheque</h4>
+            </div>
+            <div class="modal-body" style="height: 500px;overflow-y: auto;">
+                <div class="row mensagens">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="alert"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label class="control-label" for="BancoAgenciaContaCorrente">Banco / Agência / Conta Corrente</label>
+                            @Html.TextBoxFor(model => model.BancoAgenciaContaCorrente, new { @readonly = true, @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="control-label" for="NumeroCheque">Nº Cheque</label>
+                            @Html.TextBoxFor(model => model.NumeroCheque, new { @readonly = true, @class = "form-control text-center" })
+                        </div>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                        <div class="form-group">
+                            <label class="control-label" for="DecricaoSituacaoAtualCheque">Situação atual do Cheque</label>
+                            @Html.TextBoxFor(model => model.DescricaoSituacaoAtualCheque, new { @readonly = true, @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Situação Cheque</th>
+                                    <th>Data/Hora Histórico</th>
+                                    <th>Histórico Cheque</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model.ListaHistoricoCheque != null)
+                                    {
+                                        foreach (var item in Model.ListaHistoricoCheque)
+                                        {
+                                            <tr>
+                                                <td>@item.DescicaoSituacaoCheque</td>
+                                                <td>@item.DataHoraHistoricoCheque</td>
+                                                <td>@item.HistoricoCheque</td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

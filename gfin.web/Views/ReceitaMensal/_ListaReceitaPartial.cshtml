@@ -1,0 +1,142 @@
+﻿@model GFin.Web.Models.Filtros.FiltroReceitaModel
+@{
+    int anoFiltro = Model.DataInicialFiltro.Year;
+    int mesFiltro = Model.DataInicialFiltro.Month;
+}
+<br />
+<div class="panel panel-default">
+    <div class="btn-group btn-group-justified visible-xs" role="group">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default filtroReceitas" data-filtro="01/12/@(anoFiltro - 1)" title="Voltar para Dezembro/@(anoFiltro - 1)">@(anoFiltro - 1)</button>
+        </div>
+        <div class="btn-group" role="group" style="width: 3%;">
+            <select id="DataInicialFiltro" class="form-control filtroReceitasSelect">
+                @foreach (SelectListItem item in Model.DropboxFiltroMesAno.Itens)
+                {
+                    <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                }
+            </select>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default filtroReceitas" data-filtro="01/01/@(anoFiltro + 1)" title="Ir para Janeiro/@(anoFiltro + 1)">@(anoFiltro + 1)</button>
+        </div>
+    </div>
+    <ul class="nav nav-pills nav-justified hidden-xs">
+        <li>
+            <a href="#" class="filtroReceitas" data-filtro="01/12/@(anoFiltro - 1)" title="Voltar para Dezembro/@(anoFiltro - 1)">
+                <span aria-hidden="true">@(anoFiltro - 1)</span>
+            </a>
+        </li>
+        @foreach (SelectListItem item in Model.DropboxFiltroMesAno.Itens)
+        {
+            DateTime dataFiltro = DateTime.Parse(item.Value);
+            bool hasAtivo = (dataFiltro.CompareTo(Model.DataInicialFiltro) == 0);
+            <li class="hidden-xs @(hasAtivo ? "active" : "")"><a href="#" class="filtroReceitas" data-filtro="@item.Value" title="@item.Text"><span class="visible-sm">@dataFiltro.Month</span><span class="hidden-sm">@GFin.Negocio.UtilNegocio.ConverterPrimeiraLetraEmMaiusculo(dataFiltro.ToString("MMM"))</span></a></li>
+        }
+        <li>
+            <a href="#" class="filtroReceitas" data-filtro="01/01/@(anoFiltro + 1)" title="Ir para Janeiro/@(anoFiltro + 1)">
+                <span aria-hidden="true">@(anoFiltro + 1)</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="hidden-xs hidden-sm">Natureza</th>
+            <th>Descrição<span class="hidden-xs hidden-sm"> da Receita</span></th>
+            <th class="text-center"><span class="hidden-xs hidden-sm">Data de </span>Recebimento</th>
+            <th class="text-center hidden-xs hidden-sm">Forma de Recebimento</th>
+            <th class="text-right">Valor<span class="hidden-xs hidden-sm"> da Receita</span></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            GFin.Dados.Enums.TipoFormaRecebimentoEnum enumFormaRecebimento;
+            string textoFormaRecebimento = "";
+            if (Model.ReceitasMensais.Count == 0)
+            {
+                <tr>
+                    <td colspan="7">Nenhum registro de receita mensal encontrado.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model.ReceitasMensais)
+                {
+                    enumFormaRecebimento = GFin.Dados.Enums.UtilEnum.GetFormaRecebimento(item.CodigoTipoFormaRecebimento);
+                    textoFormaRecebimento = GFin.Dados.Enums.UtilEnum.GetTextoEnum(enumFormaRecebimento);
+                    <tr>
+                        <td class="hidden-xs hidden-sm">@item.NaturezaContaReceita.DescricaoNaturezaConta</td>
+                        <td>@item.TextoDescricaoReceita</td>
+                        <td class="text-center">@item.DataRecebimentoReceita.ToString("dd/MM/yyyy")</td>
+                        <td class="text-left hidden-xs hidden-sm">@textoFormaRecebimento</td>
+                        <td class="text-right">@item.ValorReceita.ToString("N")</td>
+                        <td class="text-center">
+                            <div class="btn-group dropup visible-xs">
+                                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    @if (item.IsReceitaLiquidada)
+                                    {
+                                        <li><a href="#" data-id="@item.Id" class="linkDetalharReceitaLiquidada" title="@string.Format("Receita liquidada em {0}", item.DataHoraLiquidacaoReceita.HasValue?item.DataHoraLiquidacaoReceita.Value.ToString("dd/MM/yyyy"):"[Sem informação]")">Detalhar receita</a></li>
+                                        <li><a href="#" data-id="@item.Id" class="linkEstornarReceitaLiquidada" title="Estornar receita liquidada">Estornar receita</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="#" data-id="@item.Id" class="linkLiquidarReceita" title="Liquidar receita mensal.">Liquidar receita</a></li>
+                                        <li>@Html.ActionLink("Editar Receita", "Editar", "ReceitaMensal", new { @id = item.Id }, new { @title = "Editar receita" })</li>
+                                    }
+                                    <li><a href="#" title="Remover receita mensal" data-idreceitamensal="@item.Id" class="removerReceitaMensal">Remover receita</a></li>
+                                </ul>
+                            </div>
+                            <div class="hidden-xs hidden-sm">
+                                @if (item.IsReceitaLiquidada)
+                                {
+                                    <a href="#" data-id="@item.Id" class="glyphicon glyphicon-ok linkDetalharReceitaLiquidada" title="@string.Format("Detalhar receita liquidada em {0}", item.DataHoraLiquidacaoReceita.HasValue?item.DataHoraLiquidacaoReceita.Value.ToString("dd/MM/yyyy"):"[Sem informação]")"></a>
+                                    <span>&nbsp;</span>
+                                    <a href="#" data-id="@item.Id" class="glyphicon glyphicon-erase linkEstornarReceitaLiquidada" title="Estornar receita liquidada"></a>
+                                }
+                                else
+                                {
+                                    <a href="#" data-id="@item.Id" class="glyphicon glyphicon glyphicon-usd linkLiquidarReceita" title="Liquidar receita mensal."></a>
+                                    <span>&nbsp;</span>
+                                    @Html.ActionLink(" ", "Editar", "ReceitaMensal", new { @id = item.Id }, new { @class = "glyphicon glyphicon-edit", @title = "Editar receita mensal" })
+                                }
+                                <span>&nbsp;</span>
+                                <a href="#" title="Remover receita mensal" data-idreceitamensal="@item.Id" class="glyphicon glyphicon-trash removerReceitaMensal"></a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+<hr />
+<div class="row">
+    <div class="col-md-3 col-xs-6">
+        <div class="form-group">
+            <label for="ValorTotalReceita">Total Geral:</label>
+            @Html.TextBox("ValorTotalReceita", @Model.ValorTotalReceita.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas text-right" })
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-6">
+        <div class="form-group">
+            <label for="ValorTotalReceitaPagas">Total Recebidas:</label>
+            @Html.TextBox("ValorTotalReceitaPagas", @Model.ValorTotalReceitaRecebidas.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas-pagas text-right" })
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-6">
+        <div class="form-group">
+            <label for="ValorTotalReceitaAbertas">Total Abertas:</label>
+            @Html.TextBox("ValorTotalReceitaAbertas", @Model.ValorTotalReceitaAbertas.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas-abertas text-right" })
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-6">
+        <div class="form-group">
+            <label for="ValorTotalReceitaVencidas">Total Vencidas:</label>
+            @Html.TextBox("ValorTotalReceitaVencidas", @Model.ValorTotalReceitaVencidas.ToString("N"), new { @readonly = "readonly", @class = "form-control input-contas-vencidas text-right" })
+        </div>
+    </div>
+</div>

@@ -2,6 +2,14 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gfin.webapi", "gfin.webapi\gfin.webapi.csproj", "{219FEC1C-96B9-4F5A-8DE9-514233942B97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GFin.Web", "gfin.web\GFin.Web.csproj", "{FDF192F5-4D53-4056-9CC6-E3AB0544345B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GFin.Service", "gfin.service\GFin.Service.csproj", "{29540779-4262-4F79-ACDF-A43C8F06A42D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GFin.Core", "gfin.core\GFin.Core.csproj", "{52AE5BF2-163F-4C3F-B497-3E89EDB2C44A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GFin.Tests", "gfin.tests\GFin.Tests.csproj", "{D95E001B-BBE6-40F0-AD6A-E7AFEE408CBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +20,21 @@ Global
 		{219FEC1C-96B9-4F5A-8DE9-514233942B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{219FEC1C-96B9-4F5A-8DE9-514233942B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{219FEC1C-96B9-4F5A-8DE9-514233942B97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDF192F5-4D53-4056-9CC6-E3AB0544345B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDF192F5-4D53-4056-9CC6-E3AB0544345B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDF192F5-4D53-4056-9CC6-E3AB0544345B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDF192F5-4D53-4056-9CC6-E3AB0544345B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29540779-4262-4F79-ACDF-A43C8F06A42D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29540779-4262-4F79-ACDF-A43C8F06A42D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29540779-4262-4F79-ACDF-A43C8F06A42D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29540779-4262-4F79-ACDF-A43C8F06A42D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52AE5BF2-163F-4C3F-B497-3E89EDB2C44A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52AE5BF2-163F-4C3F-B497-3E89EDB2C44A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52AE5BF2-163F-4C3F-B497-3E89EDB2C44A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52AE5BF2-163F-4C3F-B497-3E89EDB2C44A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D95E001B-BBE6-40F0-AD6A-E7AFEE408CBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D95E001B-BBE6-40F0-AD6A-E7AFEE408CBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D95E001B-BBE6-40F0-AD6A-E7AFEE408CBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D95E001B-BBE6-40F0-AD6A-E7AFEE408CBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

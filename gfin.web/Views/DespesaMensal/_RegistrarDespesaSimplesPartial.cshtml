@@ -1,0 +1,72 @@
+﻿@model GFin.Web.Models.DespesaMensalModel
+<form id="registrarNovaDespesaForm" onsubmit="return false;">
+    <div class="modal fade" id="modalRegistrarNovaDespesaMensal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Registrar Despesa Rápida</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row mensagens">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="alert"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="IdNaturezaDespesaMensal">Natureza Despesa</label>
+                                @Html.DropDownListFor(model => model.IdNaturezaDespesaMensal, Model.DropboxNaturezaDespesa.Itens, new { @required = true, @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="CodigoFormaPagamentoDespesaMensal">Forma Liquidação</label>
+                                @Html.DropDownListFor(model => model.CodigoFormaPagamentoDespesaMensal, Model.DropboxFormaLiquidacao.Itens, new { @required = true, @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <label for="TextoDescricaoDespesaMensal">Descrição Despesa</label>
+                                @Html.TextBoxFor(m => m.TextoDescricaoDespesaMensal, new { @maxlength = 100, @required = true, @class = "form-control", @placeholder = "Texto da descrição da despesa" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label for="DataVencimentoDespesa">Data Vencimento</label>
+                                <div class='input-group date' id='dtpDataVencimentoDespesa'>
+                                    @Html.TextBoxFor(m => m.DataVencimentoDespesa, String.Format("{0:d}", Model.DataVencimentoDespesa), new { @maxlength = 10, @alt = "data", @required = true, @class = "form-control text-center", @placeholder = "dd/mm/aaaa" })
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label for="ValorDespesa" id="labelValorDespesa">Valor Despesa</label>
+                                @Html.TextBoxFor(m => m.ValorDespesa, new { @maxlength = "15", @alt = "valor", @required = true, @class = "form-control text-right", @placeholder = "Valor da despesa ou parcela" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <div class="form-checkbox">
+                                <label for="IsDespesaLiquidada">
+                                    @Html.CheckBoxFor(model => model.IsDespesaLiquidada) Despesa Liquidada?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-primary" id="btnRegistrarNovaDespesa">Registrar</button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

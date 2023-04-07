@@ -1,0 +1,56 @@
+﻿@model GFin.Web.Models.CorrentistaModel
+
+@{
+    ViewBag.Title = "Editar Agenda de Correntista";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Editar", "Correntista", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.IdCorrentista)
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="form-group">
+                <label class="control-label" for="nomeBanco">Nome do Banco:</label>
+                @Html.DropDownListFor(model => model.NomeBanco, Model.DropboxNomeBanco.Itens, new { @required = true, @class = "form-control", @title = "Nome do Banco do Correntista" })
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+                <label for="NumeroAgencia">N.º Agência<span class="hidden-xs"> e DV</span>:</label>
+                @Html.TextBoxFor(model => model.NumeroAgencia, new { @maxlength = 6, @required = true, @class = "form-control text-right", @placeholder = "Número de sua agência, com dígito verificador" })
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+                <label for="NumeroBanco">N.º Conta<span class="hidden-xs"> Corrente e DV</span>:</label>
+                @Html.TextBoxFor(model => model.NumeroContaCorrente, new { @maxlength = "15", @required = true, @class = "form-control text-right", @placeholder = "Número de sua conta corrente, com dígito verificador" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="form-group">
+                <label for="NomeCorrentista">Nome do Correntista:</label>
+                @Html.TextBoxFor(model => model.NomeCorrentista, new { @maxlength = 80, @required = true, @class = "form-control", @placeholder = "Nome do titular da conta corrente" })
+            </div>
+        </div>
+        <div class="col-md-6 col-xs-6">
+            <div class="form-group">
+                <label for="Observacao">Observações:</label>
+                @Html.TextBoxFor(model => model.Observacao, new { @class = "form-control", @placeholder = "Observações do correntista", @title = "Observação do correntista." })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="pull-right">
+                <button id="btnGravar" type="submit" class="btn btn-primary">Gravar</button>
+                @Html.ActionLink("Voltar", "Index", "Correntista", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+<div id="listarCorrentista">Carregar lista de correntistas...</div>
+@section ScriptPage {
+    <script src="~/Content/site/js/ViewCorrentista.js"></script>
+}

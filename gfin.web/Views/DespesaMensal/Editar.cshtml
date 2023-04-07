@@ -1,0 +1,81 @@
+﻿@model GFin.Web.Models.DespesaMensalEdicaoModel
+@{
+    ViewBag.Title = "Conta à Pagar Mensal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Editar", "DespesaMensal", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.IdDespesaMensal)
+    @Html.HiddenFor(model => model.NumeroParcelaDespesa)
+    @Html.HiddenFor(model => model.IsDespesaMensalParcelada)
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-sm-6 col-lg-6">
+            <div class="form-group">
+                <label for="IdNaturezaDespesaMensal">Natureza da Despesa</label>
+                @Html.DropDownListFor(model => model.IdNaturezaDespesaMensal, Model.DropboxNaturezaDespesa.Itens, new { @required = true, @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4 col-sm-4 col-lg-4">
+            <div class="form-group">
+                <label class="control-label" for="DescricaoTipoFormaLiquidacao">Forma Liquidação</label>
+                @Html.TextBoxFor(model => model.DescricaoTipoFormaLiquidacao, new { @readonly = true, @class = "form-control" })
+                @Html.HiddenFor(model => model.CodigoFormaPagamentoDespesaMensal)
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-2 col-sm-2 col-lg-2">
+        @if (Model.IsDespesaMensalParcelada)
+        {
+            <div class="form-group">
+                <label for="CodigoFormaPagamentoDespesaMensal">Conta Parcelada?</label>
+                <div class="input-group">
+                    <span class="input-group-addon">Sim</span>
+                    <input type="text" class="form-control" readonly="readonly" value="@(string.Format("{0} Parcelas", Model.QtdParcelasDespesa))" />
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                <label for="CodigoFormaPagamentoDespesaMensal">Conta Parcelada?</label>
+                <input type="text" class="form-control" readonly="readonly" value="Não"/>
+            </div>
+        }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-7 col-sm-7 col-lg-7">
+            <div class="form-group">
+                <label for="TextoDescricaoDespesaMensal">Descrição Despesa</label>
+                @Html.TextBoxFor(m => m.TextoDescricaoDespesaMensal, new { @maxlength = 100, @required = true, @class = "form-control", @placeholder = "Texto da descrição da despesa" })
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-2 col-sm-2 col-lg-2">
+            <div class="form-group">
+                <label for="DataVencimentoDespesa">Data Vencimento</label>
+                <div class='input-group date' id='dtpDataVencimentoDespesa'>
+                    @Html.TextBoxFor(m => m.DataVencimentoDespesa, String.Format("{0:d}", Model.DataVencimentoDespesa), new { @required = true, @maxlength = 10, @alt = "data", @class = "form-control text-center", @placeholder = "dd/mm/aaaa" })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-3 col-sm-3 col-lg-3">
+            <div class="form-group">
+                <label for="ValorDespesa">Valor Despesa</label>
+                @Html.TextBoxFor(m => m.ValorDespesa, new { @maxlength = "15", @alt = "valor", @required = true, @class = "form-control text-right", @placeholder = "Valor da receita" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+            <div class="pull-right">
+                <button id="btnGravar" type="submit" class="btn btn-primary">Gravar</button>
+                @Html.ActionLink("Voltar", "Index", "DespesaMensal", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+@section ScriptPage {
+    <script src="~/Content/site/js/ViewDespesaMensalEditar.js"></script>
+}

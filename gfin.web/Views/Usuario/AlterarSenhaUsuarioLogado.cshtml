@@ -1,0 +1,70 @@
+﻿@model GFin.Web.Models.AlterarSenhaUsuarioModel
+@{
+    ViewBag.Title = "Alterar senha de usuário";
+    Layout = "~/Views/Shared/_LayoutBlank.cshtml";
+}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 text-right">
+        <h1 class="hidden-xs">Gerenciador Financeiro</h1>
+        <h2 class="visible-xs">Gerenciador Financeiro</h2>
+        <img src="~/Content/site/imgs/logo-inFourSys-reduzido.png" /><br /><br />
+        <div class="well well-sm hidden-xs">
+            <h4><strong>Alterar senha de usuário</strong></h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                @Html.ValidationSummary()
+                @using (Html.BeginForm("AlterarSenhaUsuario", "Usuario", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.IdUsuario)
+                    @Html.HiddenFor(model => model.Email)
+                    @Html.HiddenFor(model => model.FotoBase64)
+                    <div class="row">
+                        <div class="col-md-12 col-sd-12 col-xs-12">
+                            <div class="user-panel">
+                                <div class="pull-left image">
+                                    <img src="@Model.FotoBase64" class="img-circle" alt="Imagem do usuário">
+                                </div>
+                                <div class="pull-left info">
+                                    <span><strong>@Model.Nome</strong></span><br>
+                                    <span>@Model.Email</span><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12 col-sd-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="Senha">Digite uma nova senha de acesso</label>
+                                @Html.PasswordFor(model => model.Senha, new { @maxlength = 10, @required = true, @class = "form-control", @title = "Informe a nova senha.", @placeholder = "Informe a nova senha" })
+                                @Html.ValidationMessageFor(model => model.Senha)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sd-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="ConfirmaSenha">Repitir senha</label>
+                                @Html.PasswordFor(model => model.ConfirmaSenha, new { @maxlength = 10, @required = true, @class = "form-control", @title = "Repita a nova senha.", @placeholder = "Repita a nova senha" })
+                                @Html.ValidationMessageFor(model => model.ConfirmaSenha)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sd-12 col-xs-12">
+                            <div class="pull-right">
+                                <button id="btnSalvar" type="submit" class="btn btn-primary">Salvar</button>
+                                @Html.ActionLink("Voltar", "Index", "Home", null, new { @class = "btn btn-default" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

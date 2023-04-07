@@ -1,0 +1,72 @@
+﻿@model GFin.Web.Models.ReceitaMensalModel
+<form id="registrarNovaReceitaForm" onsubmit="return false;">
+    <div class="modal fade" id="modalRegistrarNovaReceitaMensal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Registrar Receita Rápida</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row mensagens">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="alert"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="IdNaturezaReceitaMensal">Natureza Receita</label>
+                                @Html.DropDownListFor(model => model.IdNaturezaReceitaMensal, Model.DropboxNaturezaReceita.Itens, new { @required = true, @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="CodigoFormaPagamentoReceitaMensal">Forma Recebimento</label>
+                                @Html.DropDownListFor(model => model.CodigoFormaRecebimentoReceitaMensal, Model.DropboxFormaRecebimento.Itens, new { @required = true, @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <label for="TextoDescricaoReceitaMensal">Descrição Receita</label>
+                                @Html.TextBoxFor(m => m.TextoDescricaoReceitaMensal, new { @maxlength = 100, @required = true, @class = "form-control", @placeholder = "Texto da descrição da receita" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label for="DataRecebimentoReceita">Data Recebimento</label>
+                                <div class='input-group date' id='dtpDataRecebimentoReceita'>
+                                    @Html.TextBoxFor(m => m.DataRecebimentoReceita, String.Format("{0:d}", Model.DataRecebimentoReceita), new { @maxlength = 10, @alt = "data", @required = true, @class = "form-control text-center", @placeholder = "dd/mm/aaaa" })
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label for="ValorReceita" id="labelValorReceita">Valor Receita</label>
+                                @Html.TextBoxFor(m => m.ValorReceita, new { @maxlength = "15", @alt = "valor", @required = true, @class = "form-control text-right", @placeholder = "Valor da receita" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <div class="form-checkbox">
+                                <label for="IsReceitaRecebida">
+                                    @Html.CheckBoxFor(model => model.IsReceitaRecebida) Receita Recebida?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-primary" id="btnRegistrarNovaReceita">Registrar</button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

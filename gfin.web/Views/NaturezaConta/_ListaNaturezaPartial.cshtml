@@ -1,0 +1,33 @@
+﻿@model List<GFin.Dados.Models.NaturezaConta>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tipo Natureza</th>
+            <th>Descrição Natureza</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+    <tr class="@GFin.Dados.Enums.UtilEnum.GetTextoTipoLancamentoConta(item.CodigoTipoLancamentoConta).ToLower()">
+        <td>@GFin.Dados.Enums.UtilEnum.GetTextoTipoLancamentoConta(item.CodigoTipoLancamentoConta)</td>
+        <td>@item.DescricaoNaturezaConta</td>
+        <td class="text-center">
+            <div class="btn-group dropup visible-xs">
+                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>@Html.ActionLink("Editar Natureza", "Editar", "NaturezaConta", new { @id = item.Id }, new { @title = "Editar Natureza" })</li>
+                    <li><a href="#" title="Remover natureza da conta." data-id="@item.Id" class="removerNaturezaConta">Remover Natureza</a></li>
+                </ul>
+            </div>
+            <div class="hidden-xs">
+                @Html.ActionLink(" ", "Editar", "NaturezaConta", new { @id = item.Id }, new { @class = "glyphicon glyphicon-edit", @title = "Editar Natureza" })
+                <span>&nbsp;</span>
+                <a href="#" title="Remover natureza da conta." data-id="@item.Id" class="glyphicon glyphicon-trash removerNaturezaConta"></a>
+            </div>
+        </td>
+    </tr>
+}
+    </tbody>
+</table>

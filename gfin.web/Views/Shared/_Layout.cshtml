@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>GFin - Gerenciador Financeiro</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="GFin - Gerenciador Financeiro vrs 1.0">
+    <meta name="author" content="Eladio Lima Magalhães Júnior [eladiojunior@gmail.com.br]">
+    <!-- Icones/imagens utilizados nos dispositivos -->
+    <link rel="icon" type="image/x-icon" href="@Url.Content("~/Content/site/imgs/inFourSys-32x32.ico")"/>
+    <link rel="shortcut icon" type="image/x-icon" href="@Url.Content("~/Content/site/imgs/inFourSys-32x32.ico")"/>
+    <link rel="apple-touch-icon-precomposed" href="@Url.Content("~/Content/site/imgs/logo-inFourSys-redondo.png")" />
+    <!-- Styles de frameworks utilizados -->
+    <link href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/bootstrap/css/bootstrap-theme.min.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/ionicons/css/ionicons.min.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/site/css/site.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/dropzone/css/basic.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/dropzone/css/dropzone.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/cropper/css/cropper.min.css")" rel="stylesheet" type="text/css" />
+    @RenderSection("StylePage", required: false)
+    ><!-- JavaScript de frameworks utilizados  -->
+    <!--[if lt IE 9]>
+    <script src="@Url.Content("~/Content/html5shiv/js/html5shiv.min.js")"></script>
+    <script src="@Url.Content("~/Content/respond/js/respond.min.js")"></script>
+    <![endif]-->
+</head>
+<body class="skin-black sidebar-mini fixed sidebar-open">
+    <!--[if lt IE 9]>
+    <br/><br/><br/><br/><br/>
+    <center>
+        <img src="@Url.Content("~/Content/site/imgs/logo-inFourSys-reduzido.png")"/>
+        <br/><br/>
+        <h4>Atenção: Atualize seu navegador para visualizar os serviços do GFin - Gerenciador Financeiro.</h4>
+        <h5>Nossos serviços são compatíveis com os navegadores: Internet Explorer, versão 9 ou superior, Safari, versão 5, Chrome e Firefox.</h5>
+        <h5>Outros navegadores podem funcionar, mas não foram realizados testes de compatibilidade.</h5>
+        <img src="@Url.Content("~/Content/site/imgs/browser-compatibility.png")" width="300"/>
+        <br/>
+    </center>
+    <style type="text/css">
+        .wrapper { display: none; }
+    </style>
+    <![endif]-->
+    @Html.Partial("~/Views/Usuario/_MudarFotoUsuarioPartial.cshtml");
+    <div class="wrapper">
+        <header class="main-header">
+            <nav class="navbar navbar-static-top" role="navigation">
+                <a href="~/Home/Index" class="logo">
+                    <img src="@Url.Content("~/Content/site/imgs/logo-inFourSys-redondo.png")" width="40" height="40" />
+                    <span class="logo-lg">Gerenciador Financeiro</span>
+                </a>
+                <div class="tituloAplicacao">@ViewBag.Title</div>
+                <a href="#" class="sidebar-toggle visible-xs" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Menu</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav in">
+                        <li>
+                            <a class="active" href="~/Home/Index" title="Início">
+                                <i class="fa fa-home"></i>
+                                <span class="hidden-xs hidden-sm">Início</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="~/Usuario/Logoff" title="Sair">
+                                <i class="fa fa-sign-out"></i>
+                                <span class="hidden-xs hidden-sm">Sair</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <ul class="user-panel">
+                    <li class="entidade-controle">
+                        <h5>@GFin.Web.UsuarioLogadoConfig.Instance.UsuarioLogado.NomeEntidade</h5>
+                    </li>
+                    <li id="menusuario" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <div class="pull-left image">
+                                <img id="fotoUsuario" src="@GFin.Web.UsuarioLogadoConfig.Instance.UsuarioLogado.FotoBase64" class="img-circle" alt="Imagem do usuário">
+                            </div>
+                            <div class="pull-left info">
+                                <span><strong>@GFin.Web.UsuarioLogadoConfig.Instance.UsuarioLogado.NomeUsuario</strong></span><br>
+                                <span>@GFin.Web.UsuarioLogadoConfig.Instance.UsuarioLogado.EmailUsuario</span><br>
+                                <span>Último acesso: @GFin.Web.UsuarioLogadoConfig.Instance.UsuarioLogado.DataUltimoAcessoUsuario.ToString("dd/MM/yyyy 'às' HH:mm")</span><br>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li title="Mudar a foto do seu perfil.">
+                                <a href="#" data-toggle="modal" data-target="#modalAlterarFotoUsuario">Mudar minha foto</a>
+                            </li>
+                            <li title="Alterar sua senha atual.">
+                                <a href="~/Usuario/AlterarSenhaUsuarioLogado">Definir nova senha</a>
+                            </li>
+                            <li title="Alterar seus dados cadastrais.">
+                                <a href="~/Usuario/AlterarDadosUsuarioLogado">Alterar meus dados</a>
+                            </li>
+                            @if (GFin.Web.UsuarioLogadoConfig.Instance.IsPerfil(GFin.Dados.Enums.TipoPerfilAcessoUsuarioEnum.Administrador, GFin.Dados.Enums.TipoPerfilAcessoUsuarioEnum.Responsavel))
+                            {
+                            <li title="Compartilhar controle financeiro com parceiro(a)/amigo(a).">
+                                <a href="~/ControleFinanceiro/Compartilhar"> Compartilhar Controle</a>
+                            </li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+                <div style="position: relative; overflow: hidden; width: auto; height: 388px;" class="slimScrollDiv">
+                    <div style="height: 388px; overflow: hidden; width: auto;" class="tab-content">
+                        <ul class="sidebar-menu">
+                            <li title="Mantem na sua agenda os correntistas que você possui contato, informações de agência, conta e telefone.">
+                                <a href="~/Correntista">
+                                    <i class="fa fa-book"></i><span>Agenda de Correntistas</span>
+                                </a>
+                            </li>
+                            <li title="Mantem a natureza da conta, despesa ou receita, para agrupar suas contas.">
+                                <a href="~/NaturezaConta">
+                                    <i class="fa fa-tags"></i><span>Natureza da Conta</span>
+                                </a>
+                            </li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-minus-square"></i><span>Conta à Pagar</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu menu-open">
+                                    <li title="Registra suas despesas fixas lançadas mensalmente (automaticamente)."><a href="~/DespesaFixa"> Fixas</a></li>
+                                    <li title="Registra suas despesas mensal e parceladas"><a href="~/DespesaMensal"> Mensal</a></li>
+                                </ul>
+                            </li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-plus-square"></i><span>Conta à Receber</span><i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu menu-open">
+                                    <li title="Registra suas receitas fixas lançadas mensalmente (automaticamente)."><a href="~/ReceitaFixa"> Fixas</a></li>
+                                    <li title="Registra suas receitas mensal e parceladas"><a href="~/ReceitaMensal"> Mensal</a></li>
+                                </ul>
+                            </li>
+                            <li title="Lista suas despesas e receitas mensais, possibilitando sua liquidação e estorno destas.">
+                                <a href="~/ContasMensal">
+                                    <i class="fa fa-money"></i><span>Listar Contas Mensais</span>
+                                </a>
+                            </li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-bank"></i><span>Instituição Financeira</span><i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu menu-open">
+                                    <li title="Mantem suas contas correntes."><a href="~/ContaCorrente"> Conta Corrente</a></li>
+                                    <li title="Mantem seus cartões de créditos."><a href="~/CartaoCredito"> Cartão de Crédito</a></li>
+                                    <li title="Mantem seus cheques para controle destes."><a href="~/Cheque"> Cheque</a></li>
+                                    <li title="Importar extrato de conta bancária, aquivo padrão OFC."><a href="#"> Importar Extrato</a></li>
+                                </ul>
+                            </li>
+                            <li title="Consulta do extrato de suas contas correntes.">
+                                <a href="#">
+                                    <i class="fa fa-list"></i><span>Extrato de Conta Corrente</span>
+                                </a>
+                            </li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-check-square-o"></i><span>Controle de Cheque</span><i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li title="Registra cheque na Conta Corrente."><a href="~/Cheque"> Registrar Cheques</a></li>
+                                    <li title="Registra a emissão de um cheque."><a href="#"> Emitir Cheque</a></li>
+                                    <li title="Registra a compensação de um cheque."><a href="#"> Compensação de Cheque</a></li>
+                                    <li title="Registra a devolução de um cheque."><a href="#"> Devolver Cheque</a></li>
+                                    <li title="Registra o cancelamento de um cheque."><a href="#"> Cancelar Cheque</a></li>
+                                    <li title="Registra o resgate de um cheque."><a href="#"> Resgatar Cheque</a></li>
+                                </ul>
+                            </li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-cog"></i><span>Ferramentas</span><i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu menu-open">
+                                    <li title="Atualiza valores (juros e multas) e código de barras de boletos bancários vencidos.">
+                                        <a href="~/Boleto/AtualizarBoleto"> Atualização de Boleto</a>
+                                    </li>
+                                    <li title="Verifica as contas (despesas e receitas) fixas do mês corrente.">
+                                        <a href="~/ContasFixas"> Verificar Contas Fixas</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            @if (GFin.Web.UsuarioLogadoConfig.Instance.IsPerfil(GFin.Dados.Enums.TipoPerfilAcessoUsuarioEnum.Administrador))
+                            {
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-lock" aria-hidden="true"></i><span>Adminstração</span><i class="fa fa-angle-left pull-right"></i>
+                                    </a>
+                                    <ul class="treeview-menu menu-open">
+                                        <li title="">
+                                            <a href="#"> Usuários Registrados</a>
+                                        </li>
+                                        <li title="">
+                                            <a href="#"> Log de Auditoria</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </div><div style="background: rgba(0, 0, 0, 0.2) none repeat scroll 0% 0%; width: 3px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 231.25px;" class="slimScrollBar"></div><div style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51) none repeat scroll 0% 0%; opacity: 0.2; z-index: 90; right: 1px;" class="slimScrollRail"></div>
+                </div>
+            </section>
+        </aside>
+
+        <div style="min-height: 506px;" class="content-wrapper">
+            <div class="container-fluid">
+                @{
+                    string msg = TempData["alertaMensagem"] as string;
+                    string strTipo = "info";
+                    if (!string.IsNullOrEmpty(msg))
+                    {
+                        var tipo = (Int16)TempData["alertaTipo"];
+                        switch (tipo)
+                        {
+                            case 1: strTipo = "info"; break;
+                            case 2: strTipo = "warning"; break;
+                            case 9: strTipo = "danger"; break;
+                        }
+                    }
+                    <div class="row mensagens" style="display: @(string.IsNullOrEmpty(msg)? "none":"block")">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="alert alert-@strTipo">@Html.Raw(msg)</div>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        @Html.ValidationSummary(true)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INICIO --- JavaScript de frameworks utilizados -->
+        <script src="@Url.Content("~/Content/jquery/js/jquery.min.js")"></script>
+        <script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
+        <script src="@Url.Content("~/Content/moment/js/moment.min.js")"></script>
+        <script src="@Url.Content("~/Content/moment/js/locales.js")"></script>
+        <script src="@Url.Content("~/Content/bootstrap/js/bootstrap-datetimepicker.min.js")"></script>
+        <script src="@Url.Content("~/Content/jquery.slimScroll/js/jquery.slimscroll.js")"></script>
+        <script src="@Url.Content("~/Content/dropzone/js/dropzone.js")"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="@Url.Content("~/Content/assets/js/ie10-viewport-bug-workaround.js")"></script>
+        <script src="@Url.Content("~/Content/jquery-mask/js/jquery.mask.js")"></script>
+        <script src="@Url.Content("~/Content/cropper/js/cropper.min.js")"></script>
+        <script src="@Url.Content("~/Content/site/js/app.js")"></script>
+        <script src="@Url.Content("~/Content/site/js/site.js")" type="text/javascript" charset="us-ascii"></script>
+        @RenderSection("ScriptPage", required: false)
+        <!-- FINAL --- JavaScript de frameworks utilizados -->
+        <footer class="main-footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-9 col-sm-10 col-md-11 col-lg-11">
+                        <p class="pull-right">Desenvolvido por <strong>InFourSys</strong><span class="hidden-xs"> - Soluções para humanos.</span></p>
+                    </div>
+                    <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
+                        <p class="pull-right"><span class="hidden-xs">Versão </span>@GFin.Web.Views.ViewHelper.ObterVersaoAplicacao()</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <div style="position: fixed; height: auto;" class="control-sidebar-bg"></div>
+    </div>
+</body>
+</html>

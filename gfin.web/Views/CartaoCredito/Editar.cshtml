@@ -1,0 +1,82 @@
+﻿@model GFin.Web.Models.CartaoCreditoModel
+
+@{
+    ViewBag.Title = "Editar Cartão de Crédito";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Editar", "CartaoCredito", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.IdCartaoCredito)
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-4">
+            <div class="form-group">
+                <label for="IdBancoAgenciaContaCorrente">Banco / Agência / Conta Corrente</label>
+                @Html.DropDownListFor(model => model.IdBancoAgenciaContaCorrente, Model.DropboxBancoAgenciaContaCorrente.Itens, new { @required = true, @class = "form-control", @title = "Banco/Agência/Conta Corrente" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+            <div class="form-group">
+                <label for="NumeroCartao">N.º Cartão Crédito</label>
+                @Html.TextBoxFor(model => model.NumeroCartao, new { @maxlength = 30, @alt = "numeroCartao", @required = true, @class = "form-control text-center", @placeholder = "Número do Cartão de Crédito" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+            <div class="form-group">
+                <label for="NomeCartao">Nome do Cartão Crédito</label>
+                @Html.TextBoxFor(model => model.NomeCartao, new { @maxlength = 80, @required = true, @class = "form-control", @placeholder = "Nome do Cartão de Crédito" })
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
+            <div class="form-group">
+                <label for="MesAnoValidadeCartao"><span class="hidden-xs hidden-sm hidden-md hidden-lg">Mês/Ano </span>Validade<span class="hidden-xs  hidden-sm hidden-md"> Cartão</span></label>
+                @Html.TextBoxFor(model => model.MesAnoValidadeCartao, new { @maxlength = 10, @alt = "mesAno", @required = true, @class = "form-control text-center", @placeholder = "00/0000", @title = "Mês e Ano (00/0000) da validade do Cartão de Crédito." })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <label><span>Funções Cartão</span></label>
+            <div class="form-group">
+                <label class="checkbox-inline">@Html.CheckBoxFor(model => model.HasCartaoPrePago)Pré-Pago</label>
+                <label class="checkbox-inline">@Html.CheckBoxFor(model => model.HasCartaoCredito)Crédito</label>
+                <label class="checkbox-inline">@Html.CheckBoxFor(model => model.HasCartaoDebito)Débito</label>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-1">
+            <div class="form-group">
+                <label for="DiaVencimentoCartaoCredito"><span class="hidden-xs hidden-md hidden-lg">Dia </span>Vencimento</label>
+                @Html.TextBoxFor(model => model.DiaVencimentoCartaoCredito, new { @maxlength = 2, @alt = "numero", @required = true, @class = "form-control text-center", @placeholder = "00", @title = "Dia (1 a 31) de venciamento da fatura do Cartão de Crédito." })
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
+            <div class="form-group">
+                <label for="ValorLimiteCartao"><span class="hidden-xs hidden-sm">Valor </span>Limite Cartão</label>
+                @Html.TextBoxFor(model => model.ValorLimiteCartao, new { @maxlength = "15", @alt = "valor", @class = "form-control text-right", @placeholder = "Valor Limite Cartão", @title = "Valor do limite do Cartão de Crédito." })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+            <div class="form-group">
+                <label for="SituacaoCartao">Situação<span class="hidden-sm hidden-md"> Cartão</span></label>
+                @Html.DropDownListFor(model => model.SituacaoCartao, Model.DropboxTipoSituacaoCartao.Itens, new { @required = true, @class = "form-control", @title = "Situção do Cartão de Crédito" })
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="form-group">
+                <label for="NomeTitular">Nome do Titular</label>
+                @Html.TextBoxFor(model => model.NomeProprietarioCartao, new { @maxlength = 80, @required = true, @class = "form-control", @placeholder = "Nome do proprietário do Cartão de Crédito" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="pull-right">
+                <button id="btnGravar" type="submit" class="btn btn-primary">Gravar</button>
+                @Html.ActionLink("Voltar", "Index", "CartaoCredito", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+<div id="listarCartaoCredito">Carregar lista de cartão de crédito...</div>
+@section ScriptPage {
+    <script src="~/Content/site/js/ViewCartaoCredito.js"></script>
+}

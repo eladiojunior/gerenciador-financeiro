@@ -1,0 +1,79 @@
+﻿@model GFin.Web.Models.ListaCompartilhamentoModel
+
+@{
+    ViewBag.Title = "Lista de Compartilhamentos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-header">
+    <small>Você compartilhor seu controle financeiro essas pessoas abaixo.</small>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="hidden-xs">Nome <span class="hidden-sm">da Pessoa</span></th>
+            <th>E-mail <span class="hidden-sm hidden-md"> da Pessoa</span></th>
+            <th class="text-center">Permissão</th>
+            <th class="text-center">Convidado em</th>
+            <th class="text-center">Aceite em</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Compartilhamentos)
+        {
+            var hasAceito = item.DataHoraAceiteConvite.HasValue;
+            <tr class="@(hasAceito?"info":"danger")">
+                <td class="hidden-xs">@item.NomeConvidado</td>
+                <td>@item.EmailConvidado</td>
+                <td class="text-center">@GFin.Dados.Enums.UtilEnum.GetTextoTipoPermissaoCompartilhamento(item.CodigoPermissaoCompartilhamento)</td>
+                <td class="text-center">@item.DataHoraRegistroConvite.ToString("dd/MM/yyyy")</td>
+                <td class="text-center">@(item.DataHoraAceiteConvite.HasValue?item.DataHoraAceiteConvite.Value.ToString("dd/MM/yyyy"):"Sem resposta")</td>
+                <td class="text-center">
+                    <div class="btn-group dropup visible-xs">
+                        <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            @if (hasAceito)
+                            {
+                                <li>@Html.ActionLink("Excluir Compartilhamento", "RemoverCompartilhamento", "ControleFinanceiro", new { @id = item.Id }, new { @title = "Remover o compartilhamento com a pessoa." })</li>
+                                if (item.CodigoPermissaoCompartilhamento == (short)GFin.Dados.Enums.TipoPermissaoCompartilhamentoEnum.Visualizacao)
+                                {
+                                    <li>@Html.ActionLink("Permitir Editar", "MudarPermissaoCompartilhamento", "ControleFinanceiro", new { @id = item.Id, @permissao = (short)GFin.Dados.Enums.TipoPermissaoCompartilhamentoEnum.Edicao }, new { @title = "Mudar a permissão do compartilhamento para Edição." })</li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Permitir Visualizar", "MudarPermissaoCompartilhamento", "ControleFinanceiro", new { @id = item.Id, @permissao = (short)GFin.Dados.Enums.TipoPermissaoCompartilhamentoEnum.Visualizacao }, new { @title = "Mudar a permissão do compartilhamento para somente Visualização." })</li>
+                                }
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Reenviar Convite", "ReenviarConvite", "ControleFinanceiro", new { @id = item.Id }, new { @title = "Reenviar convite para a pessoa." })</li>
+                                <li>@Html.ActionLink("Cancelar Convite", "CancelarConvite", "ControleFinanceiro", new { @id = item.Id }, new { @title = "Cancelar convite enviado e sem resposta da pessoa." })</li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="hidden-xs">
+                        @if (hasAceito)
+                        {
+                            @Html.ActionLink(" ", "RemoverCompartilhamento", "ControleFinanceiro", new { @id = item.Id }, new { @class = "fa fa-chain-broken", @title = "Remover o compartilhamento com a pessoa." })
+                            <span>&nbsp;</span>
+                            if (item.CodigoPermissaoCompartilhamento == (short)GFin.Dados.Enums.TipoPermissaoCompartilhamentoEnum.Visualizacao)
+                            {
+                                @Html.ActionLink(" ", "MudarPermissaoCompartilhamento", "ControleFinanceiro", new { @id = item.Id, @permissao = (short)GFin.Dados.Enums.TipoPermissaoCompartilhamentoEnum.Edicao }, new { @class = "fa fa-pencil-square-o", @title = "Mudar a permissão do compartilhamento para Edição." })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(" ", "MudarPermissaoCompartilhamento", "ControleFinanceiro", new { @id = item.Id, @permissao = (short)GFin.Dados.Enums.TipoPermissaoCompartilhamentoEnum.Visualizacao }, new { @class = "fa fa-eye", @title = "Mudar a permissão do compartilhamento para somente Visualização." })
+                            }
+                        }
+                        else
+                        {
+                            @Html.ActionLink(" ", "ReenviarConvite", "ControleFinanceiro", new { @id = item.Id }, new { @class = "fa fa-chain-broken", @title = "Reenviar convite para a pessoa." })
+                            <span>&nbsp;</span>
+                            @Html.ActionLink(" ", "CancelarConvite", "ControleFinanceiro", new { @id = item.Id }, new { @class = "fa fa-ban", @title = "Cancelar convite enviado e sem resposta da pessoa." })
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

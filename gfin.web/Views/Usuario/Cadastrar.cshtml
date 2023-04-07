@@ -1,0 +1,104 @@
+﻿@model GFin.Web.Models.UsuarioRegistroModel
+@{
+    ViewBag.Title = "Registrar Usuário";
+    Layout = "~/Views/Shared/_LayoutBlank.cshtml";
+}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 text-right">
+        <h1 class="hidden-xs">Gerenciador Financeiro</h1>
+        <h2 class="visible-xs">Gerenciador Financeiro</h2>
+        <img src="~/Content/site/imgs/logo-inFourSys-reduzido.png" /><br /><br />
+        <div class="well well-sm hidden-xs">
+            <h4>Experimente o gerenciador financeiro, é simples, faça seu registro.</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                @Html.ValidationSummary()
+                @using (Html.BeginForm("Registrar", "Usuario", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-12 col-sd-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="Nome">Nome completo</label>
+                                @Html.TextBoxFor(model => model.Nome, new { @maxlength = 80, @required = true, @class = "form-control", @title = "Informe seu nome completo.", @placeholder = "Informe seu nome completo" })
+                                @Html.ValidationMessageFor(model => model.Nome)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sd-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="Email">E-mail</label>
+                                @Html.TextBoxFor(model => model.Email, new { @maxlength = 50, @type = "email", @required = true, @class = "form-control", @title = "Informe seu e-mail.", @placeholder = "Informe seu e-mail" })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sd-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="Senha">Senha</label>
+                                @Html.PasswordFor(model => model.Senha, new { @maxlength = 10, @required = true, @class = "form-control", @title = "Informe sua senha.", @placeholder = "Informe sua senha" })
+                                @Html.ValidationMessageFor(model => model.Senha)
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sd-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="ConfirmaSenha">Confirmação</label>
+                                @Html.PasswordFor(model => model.ConfirmaSenha, new { @maxlength = 10, @required = true, @class = "form-control", @title = "Informe a confirmação da senha.", @placeholder = "Informe a confirmação da senha" })
+                                @Html.ValidationMessageFor(model => model.ConfirmaSenha)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sd-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="CodigoTipoEntidadeControle">Desejo controlar as finanças da </label>&nbsp;
+                                <label class="radio-inline">
+                                    @Html.RadioButtonFor(model => model.CodigoTipoEntidadeControle, 1, new { @autocomplete = "off", @checked = "true" }) Minha Casa
+                                </label>
+                                <label class="radio-inline">
+                                    @Html.RadioButtonFor(model => model.CodigoTipoEntidadeControle, 2, new { @autocomplete = "off" }) Minha Empresa
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse" id="divEmpresa">
+                        <div class="row">
+                            <div class="col-md-8 col-sd-8 col-xs-12">
+                                <div class="form-group">
+                                    <label for="NomeEntidadeControle">Nome da Empresa</label>
+                                    @Html.TextBoxFor(model => model.NomeEntidadeControle, new { @maxlength = 80, @class = "form-control", @title = "Informe o nome da sua empresa.", @placeholder = "Informe o nome da sua empresa" })
+                                    @Html.ValidationMessageFor(model => model.NomeEntidadeControle)
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sd-8 col-xs-12">
+                                <div class="form-group">
+                                    <label for="CpfCnpjEntidadeControle">CPNJ da Empresa</label>
+                                    @Html.TextBoxFor(model => model.CpfCnpjEntidadeControle, new { @maxlength = "15", @alt = "cnpj", @class = "form-control", @title = "Informe o CPNJ da empresa.", @placeholder = "Informe o CNPJ da empresa" })
+                                    @Html.ValidationMessageFor(model => model.CpfCnpjEntidadeControle)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sd-12 col-xs-12">
+                            <div class="pull-right">
+                                <button id="btnRegistrar" type="submit" class="btn btn-primary">Registar</button>
+                                @Html.ActionLink("Voltar", "Login", "Usuario", null, new { @class = "btn btn-default" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section ScriptPage {
+    <script src="~/Content/site/js/ViewUsuarioCadastro.js"></script>
+}

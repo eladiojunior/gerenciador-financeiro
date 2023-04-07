@@ -1,0 +1,28 @@
+﻿@model List<GFin.Dados.Models.CartaoCredito>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center"><span class="hidden-xs hidden-sm">Número </span><span class="visible-sm visible-xs">Nº </span>Cartão</th>
+            <th>Nome Cartão</th>
+            <th class="text-center">Validade</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || Model.Count == 0)
+        {
+            <tr>
+                <td colspan="3">Nenhum cartão de crédito/débito encontrado.</td>
+            </tr>
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <label class="checkbox-inline">@Html.RadioButton("rdbCartaoCredito", @item.Id)&nbsp;&nbsp;@item.NumeroCartaoCredito</label>
+                </td>
+                <td>@item.NomeCartaoCredito</td>
+                <td class="text-center">@item.DataValidadeCartaoCredito.ToString("MM/yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>

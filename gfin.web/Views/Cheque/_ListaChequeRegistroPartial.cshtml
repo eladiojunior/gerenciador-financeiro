@@ -1,0 +1,86 @@
+﻿@model GFin.Web.Models.ChequeRegistroModel
+@using (Html.BeginForm("Registrar", "Cheque", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.IdBancoAgenciaContaCorrente);
+    @Html.HiddenFor(model => model.NumeroChequeInicial);
+    @Html.HiddenFor(model => model.NumeroChequeFinal);
+<div class="modal fade" id="modalChequeRegistro" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Registro - Lista de Cheques</h4>
+            </div>
+            <div class="modal-body" style="height: 500px;overflow-y: auto;">
+                <div class="row mensagens">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="alert"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label class="control-label" for="BancoAgenciaContaCorrente">Banco / Agência / Conta Corrente</label>
+                            @Html.TextBoxFor(model => model.BancoAgenciaContaCorrente, new { @readonly = true, @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-xs-4">
+                        <div class="form-group">
+                            <label class="control-label" for="NumeroChequeInicial">Nº Cheque Inicial</label>
+                            @Html.TextBoxFor(model => model.NumeroChequeInicial, new { @readonly = true, @class = "form-control text-center" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <div class="form-group">
+                            <label class="control-label" for="NumeroChequeFinal">Nº Cheque Final</label>
+                            @Html.TextBoxFor(model => model.NumeroChequeFinal, new { @readonly = true, @class = "form-control text-center" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <div class="form-group">
+                            <label class="control-label" for="QtdChequeRegistro">Qtd Cheques</label>
+                            @Html.TextBoxFor(model => model.QtdChequeRegistro, new { @readonly = true, @class = "form-control text-center" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Nº Cheque</th>
+                                    <th>Situação do Cheque</th>
+                                    <th class="text-center">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model.ChequesRegistro != null)
+                                    {
+                                        for (int i = 0; i < Model.ChequesRegistro.Count; i++)
+                                        {
+                                            @Html.HiddenFor(model => model.ChequesRegistro[i].NumeroCheque, new Dictionary<string, Object> { { "class", "numeroCheque" }, { "data-numero", Model.ChequesRegistro[i].NumeroCheque } })
+                                            @Html.HiddenFor(model => model.ChequesRegistro[i].CodigoSituacaoCheque)
+                                            <tr class="@(Model.ChequesRegistro[i].CodigoSituacaoCheque != 0 ? "danger" : "success")">
+                                                <td class="text-center">@Model.ChequesRegistro[i].NumeroCheque</td>
+                                                <td>@Model.ChequesRegistro[i].DescicaoSituacaoCheque</td>
+                                                <td><a href="#" title="Remover cheque da lista de registro." data-numero-cheque="@Model.ChequesRegistro[i].NumeroCheque" class="glyphicon glyphicon-remove removerChequeRegistro"></a></td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnRegistrarCheques" type="submit" class="btn btn-sm btn-primary">Registrar</button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+}

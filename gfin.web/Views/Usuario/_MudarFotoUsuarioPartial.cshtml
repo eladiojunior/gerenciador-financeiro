@@ -1,0 +1,42 @@
+﻿<!-- --------------------------------------- -->
+<!-- Modal - Alteração da foto do usuário -->
+<div class="modal face" id="modalAlterarFotoUsuario" tabindex="-1" data-id="0" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="avatar-form" action="/Usuario/JsonSalvarFotoUsuario" enctype="multipart/form-data" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="avatar-modal-label">Mudar sua foto</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="avatar-body">
+                        <div class="avatar-upload">
+                            <input type="hidden" class="avatar-src" name="avatar_src">
+                            <input type="hidden" class="avatar-data" name="avatar_data">
+                        </div>
+                        <div class="avatar-msg"></div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="avatar-wrapper-edit"></div>
+                                <div class="avatar-wrapper">
+                                    <span class="iconCamera" onclick="return false;" title="Carregar uma foto..."><i class="fa fa-camera"></i></span>
+                                    <input type="file" class="avatar-input" accept="image/x-png, image/gif, image/jpeg, .jpeg" data-max-size="2097152" id="avatarInput" name="avatar_file">
+                                </div>
+                            </div>
+                            <div class="col-md-3 hidden-xs">
+                                <div class="avatar-preview preview-lg"></div>
+                                <div class="avatar-preview preview-md"></div>
+                                <div class="avatar-preview preview-sm"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer buttons-center">
+                    <button type="submit" class="btn btn-primary avatar-save">Salvar Foto</button>
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- --------------------------------------- -->

@@ -7,11 +7,13 @@ using gfin.webapi.Dados.Models;
 using gfin.webapi.Negocio;
 using gfin.webapi.Negocio.Erros;
 using gfin.webapi.Negocio.Listeners;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace gfin.webapi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class NaturezaContaController : ControllerBase

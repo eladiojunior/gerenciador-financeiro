@@ -1,0 +1,560 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FDF192F5-4D53-4056-9CC6-E3AB0544345B}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GFin.Web</RootNamespace>
+    <AssemblyName>GFin.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AppLogger, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AppLogger.1.2.0\lib\net40\AppLogger.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Entity">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Abstractions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AppLoggerConfig.cs" />
+    <Compile Include="App_Start\AppLoggerUsuario.cs" />
+    <Compile Include="App_Start\TimerVerificarContasFixas.cs" />
+    <Compile Include="App_Start\UsuarioFilterAttribute.cs" />
+    <Compile Include="App_Start\UsuarioLogadoConfig.cs" />
+    <Compile Include="Controllers\BoletoController.cs" />
+    <Compile Include="Controllers\ChequeController.cs" />
+    <Compile Include="Controllers\CartaoCreditoController.cs" />
+    <Compile Include="Controllers\ContaCorrenteController.cs" />
+    <Compile Include="Controllers\ContasMensalController.cs" />
+    <Compile Include="Controllers\ContasFixasController.cs" />
+    <Compile Include="Controllers\ControleFinanceiroController.cs" />
+    <Compile Include="Controllers\CorrentistaController.cs" />
+    <Compile Include="Controllers\DespesaMensalController.cs" />
+    <Compile Include="Controllers\Helpers\ModelStateHelper.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\ReceitaFixaController.cs" />
+    <Compile Include="Controllers\GenericController.cs" />
+    <Compile Include="Controllers\NaturezaContaController.cs" />
+    <Compile Include="Controllers\DespesaFixaController.cs" />
+    <Compile Include="Controllers\Helpers\DropboxHelper.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReceitaMensalController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChartModel.cs" />
+    <Compile Include="Models\Cheque\ChequeModel.cs" />
+    <Compile Include="Models\Cheque\HistoricoChequeModel.cs" />
+    <Compile Include="Models\Cheque\ChequeRegistroModel.cs" />
+    <Compile Include="Models\CartaoCreditoModel.cs" />
+    <Compile Include="Models\ContaCorrenteModel.cs" />
+    <Compile Include="Models\ContasFixas\HistoricoVerificacaoContasFixasModel - Copy.cs" />
+    <Compile Include="Models\ContasFixas\HistoricoProcessoModel.cs" />
+    <Compile Include="Models\Controle\ListaCompartilhamentoModel.cs" />
+    <Compile Include="Models\CorrentistaModel.cs" />
+    <Compile Include="Models\Despesas\DespesaMensalConfirmaRemocaoModel.cs" />
+    <Compile Include="Models\Despesas\DespesaMensalEdicaoModel.cs" />
+    <Compile Include="Models\Despesas\DespesaMensalParcelamentoListaModel.cs" />
+    <Compile Include="Models\Despesas\HistoricoDespesaFixaModel.cs" />
+    <Compile Include="Models\Despesas\DespesaMensalDebitoContaModel.cs" />
+    <Compile Include="Models\Despesas\DespesaMensalCartaoCreditoModel.cs" />
+    <Compile Include="Models\Despesas\DespesaMensalParcelamentoFaturaModel.cs" />
+    <Compile Include="Models\Despesas\DespesaMensalParcelamentoDebitoContaModel.cs" />
+    <Compile Include="Models\Despesas\DespesaMensalParcelamentoCartaoCreditoModel.cs" />
+    <Compile Include="Models\Despesas\DespesaMensalChequeModel.cs" />
+    <Compile Include="Models\Despesas\DespesaMensalParcelamentoBoletoModel.cs" />
+    <Compile Include="Models\Filtros\FiltroContasModel.cs" />
+    <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\Despesas\LiquidaDespesaMensalModel.cs" />
+    <Compile Include="Models\Despesas\DetalheDespesaLiquidadaModel.cs" />
+    <Compile Include="Models\Filtros\FiltroReceitaModel.cs" />
+    <Compile Include="Models\Natureza\NovaNaturezaContaModel.cs" />
+    <Compile Include="Models\Receitas\DetalheReceitaLiquidadaModel.cs" />
+    <Compile Include="Models\Receitas\LiquidaReceitaMensalModel.cs" />
+    <Compile Include="Models\Usuario\AlterarDadosUsuarioModel.cs" />
+    <Compile Include="Models\Usuario\AlterarSenhaUsuarioModel.cs" />
+    <Compile Include="Models\Usuario\RedefinirSenhaUsuarioModel.cs" />
+    <Compile Include="Models\Usuario\ReenviarConfirmacaoUsuarioModel.cs" />
+    <Compile Include="Models\Usuario\ConfirmacaoUsuarioModel.cs" />
+    <Compile Include="Models\Controle\CompartilharControleModel.cs" />
+    <Compile Include="Models\Usuario\UsuarioRegistradoModel.cs" />
+    <Compile Include="Models\Usuario\UsuarioRecuperarSenhaModel.cs" />
+    <Compile Include="Models\Usuario\UsuarioRegistroModel.cs" />
+    <Compile Include="Models\LoginUsuarioModel.cs" />
+    <Compile Include="Models\Receitas\ReceitaMensalModel.cs" />
+    <Compile Include="Models\Despesas\DespesaMensalModel.cs" />
+    <Compile Include="Models\Despesas\DespesaMensalParcelaModel.cs" />
+    <Compile Include="Models\Despesas\DespesaMensalParcelamentoDinheiroModel.cs" />
+    <Compile Include="Models\Filtros\FiltroChequeModel.cs" />
+    <Compile Include="Models\Helpers\ConversorModel.cs" />
+    <Compile Include="Models\Cheque\SituacaoChequeModel.cs" />
+    <Compile Include="Models\Despesas\DespesaMensalParcelamentoChequePreModel.cs" />
+    <Compile Include="Models\Filtros\FiltroDespesaModel.cs" />
+    <Compile Include="Models\Receitas\ReceitaFixaModel.cs" />
+    <Compile Include="Models\Natureza\NaturezaContaModel.cs" />
+    <Compile Include="Models\Despesas\DespesaFixaModel.cs" />
+    <Compile Include="Models\Helpers\DropboxModel.cs" />
+    <Compile Include="Models\Validacao\SenhaValidation.cs" />
+    <Compile Include="Models\Validacao\CnpjValidation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\ViewHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\assets\js\ie-emulation-modes-warning.js" />
+    <Content Include="Content\assets\js\ie10-viewport-bug-workaround.js" />
+    <Content Include="Content\assets\js\ie8-responsive-file-warning.js" />
+    <Content Include="Content\bootstrap\css\bootstrap-select.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-select.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-tokenfield.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-tokenfield.min.css" />
+    <Content Include="Content\bootstrap\css\tokenfield-typeahead.css" />
+    <Content Include="Content\bootstrap\css\tokenfield-typeahead.min.css" />
+    <Content Include="Content\bootstrap\js\bootstrap-select.js" />
+    <Content Include="Content\bootstrap\js\bootstrap-select.min.js" />
+    <Content Include="Content\bootstrap\js\bootstrap-tokenfield.js" />
+    <Content Include="Content\bootstrap\js\bootstrap-tokenfield.min.js" />
+    <Content Include="Content\bootstrap\js\i18n\defaults-pt_BR.js" />
+    <Content Include="Content\bootstrap\js\i18n\defaults-pt_BR.min.js" />
+    <Content Include="Content\chart\js\chart.js" />
+    <Content Include="Content\chart\js\chart.min.js" />
+    <Content Include="Content\cropper\css\cropper.css" />
+    <Content Include="Content\cropper\css\cropper.min.css" />
+    <Content Include="Content\cropper\js\cropper.js" />
+    <Content Include="Content\cropper\js\cropper.min.js" />
+    <Content Include="Content\html\emailCompartilharControle.html" />
+    <Content Include="Content\html\emailRecuperacaoSenhaUsuario.html" />
+    <Content Include="Content\html\erroAcessoNegado.html" />
+    <Content Include="Content\moment\js\locales.js" />
+    <Content Include="Content\moment\js\moment.js" />
+    <Content Include="Content\moment\js\moment.min.js" />
+    <Content Include="Content\bootstrap\css\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bootstrap\js\bootstrap-datetimepicker.min.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap\js\npm.js" />
+    <Content Include="Content\dropzone\css\basic.css" />
+    <Content Include="Content\dropzone\css\dropzone.css" />
+    <Content Include="Content\dropzone\js\dropzone.js" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\html5shiv\js\html5shiv.min.js" />
+    <Content Include="Content\ionicons\css\ionicons.min.css" />
+    <Content Include="Content\jquery.slimscroll\js\jquery.slimscroll.js" />
+    <Content Include="Content\html\erroSistema.html" />
+    <Content Include="Content\jquery-mask\js\jquery.mask.js" />
+    <Content Include="Content\jquery-mask\js\jquery.mask.min.js" />
+    <Content Include="Content\jquery\js\jquery.js" />
+    <Content Include="Content\jquery\js\jquery.min.js" />
+    <Content Include="Content\respond\js\respond.min.js" />
+    <Content Include="Content\site\css\site.css" />
+    <Content Include="Content\site\css\skin-site.css" />
+    <Content Include="Content\html\emailConfirmacaoUsuario.html" />
+    <Content Include="Content\site\imgs\acesso-negado.png" />
+    <Content Include="Content\site\imgs\avatar.png" />
+    <Content Include="Content\site\imgs\browser-compatibility.png" />
+    <Content Include="Content\site\imgs\iconeAlerta.png" />
+    <Content Include="Content\site\imgs\iconeErro.png" />
+    <Content Include="Content\site\imgs\iconeSucesso.png" />
+    <Content Include="Content\site\imgs\inFourSys-128x128.ico" />
+    <Content Include="Content\site\imgs\inFourSys-16x16.ico" />
+    <Content Include="Content\site\imgs\inFourSys-32x32.ico" />
+    <Content Include="Content\site\imgs\inFourSys-64x64.ico" />
+    <Content Include="Content\site\imgs\logo-inFourSys-email-topo.png" />
+    <Content Include="Content\site\imgs\logo-inFourSys-reduzido.png" />
+    <Content Include="Content\site\imgs\logo-inFourSys-redondo.png" />
+    <Content Include="Content\site\imgs\alerta-erro.gif" />
+    <Content Include="Content\site\js\app.js" />
+    <Content Include="Content\site\js\ViewContasFixas.js" />
+    <Content Include="Content\site\js\ViewCheque.js" />
+    <Content Include="Content\site\js\ViewCartaoCredito.js" />
+    <Content Include="Content\site\js\ViewContaCorrente.js" />
+    <Content Include="Content\site\js\ViewDespesaMensalEditar.js" />
+    <Content Include="Content\site\js\ViewNaturezaConta.js" />
+    <Content Include="Content\site\js\ViewCorrentista.js" />
+    <Content Include="Content\site\js\ModalNovaNaturezaConta.js" />
+    <Content Include="Content\site\js\ViewDespesaMensalLiquidar.js" />
+    <Content Include="Content\site\js\ViewDespesaMensalRegistrar.js" />
+    <Content Include="Content\site\js\ViewContasMensal.js" />
+    <Content Include="Content\site\js\ViewReceitaMensalEditar.js" />
+    <Content Include="Content\site\js\ViewReceitaMensalRegistrar.js" />
+    <Content Include="Content\site\js\ViewReceitaFixa.js" />
+    <Content Include="Content\site\js\ViewDespesaFixa.js" />
+    <Content Include="Content\site\js\ViewHome.js" />
+    <Content Include="Content\site\js\ViewReceitaMensal.js" />
+    <Content Include="Content\site\js\ViewUsuarioCadastro.js" />
+    <Content Include="Content\site\js\ViewUsuarioLogin.js" />
+    <Content Include="Content\site\js\ViewReceitaMensalLiquidar.js" />
+    <Content Include="Content\site\js\ViewDespesaMensal.js" />
+    <Content Include="Content\site\js\site.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\jquery\js\jquery.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DespesaFixa\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DespesaFixa\_ListaDespesaPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DespesaFixa\Editar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\NaturezaConta\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\NaturezaConta\_ListaNaturezaPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\NaturezaConta\Editar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome\less\animated.less" />
+    <Content Include="Content\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Content\font-awesome\less\core.less" />
+    <Content Include="Content\font-awesome\less\fixed-width.less" />
+    <Content Include="Content\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\font-awesome\less\icons.less" />
+    <Content Include="Content\font-awesome\less\larger.less" />
+    <Content Include="Content\font-awesome\less\list.less" />
+    <Content Include="Content\font-awesome\less\mixins.less" />
+    <Content Include="Content\font-awesome\less\path.less" />
+    <Content Include="Content\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Content\font-awesome\less\stacked.less" />
+    <Content Include="Content\font-awesome\less\variables.less" />
+    <Content Include="Content\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\font-awesome\scss\_animated.scss" />
+    <Content Include="Content\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\font-awesome\scss\_core.scss" />
+    <Content Include="Content\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\font-awesome\scss\_list.scss" />
+    <Content Include="Content\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome\scss\_path.scss" />
+    <Content Include="Content\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\font-awesome\scss\_variables.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ReceitaFixa\Index.cshtml" />
+    <Content Include="Views\ReceitaFixa\_ListaReceitaPartial.cshtml" />
+    <Content Include="Views\ReceitaFixa\Editar.cshtml" />
+    <Content Include="Views\ContaCorrente\Index.cshtml" />
+    <Content Include="Views\ContaCorrente\_ListaContaCorrentePartial.cshtml" />
+    <Content Include="Views\ContaCorrente\Editar.cshtml" />
+    <Content Include="Views\DespesaMensal\Index.cshtml" />
+    <Content Include="Views\NaturezaConta\_NovaNaturezaPartial.cshtml" />
+    <Content Include="Views\DespesaMensal\_ListaDespesaPartial.cshtml" />
+    <Content Include="Views\DespesaMensal\_DespesaParceladaChequePrePartial.cshtml" />
+    <Content Include="Views\Cheque\Index.cshtml" />
+    <Content Include="Views\Cheque\_ListaChequePartial.cshtml" />
+    <Content Include="Views\Cheque\_ListaChequeRegistroPartial.cshtml" />
+    <Content Include="Views\Correntista\Index.cshtml" />
+    <Content Include="Views\Correntista\_ListaCorrentistaPartial.cshtml" />
+    <Content Include="Views\Correntista\Editar.cshtml" />
+    <Content Include="Views\CartaoCredito\_ListaCartaoCreditoPartial.cshtml" />
+    <Content Include="Views\CartaoCredito\Editar.cshtml" />
+    <Content Include="Views\CartaoCredito\Index.cshtml" />
+    <Content Include="Views\DespesaMensal\_DespesaParceladaDinheiroPartial.cshtml" />
+    <Content Include="Views\ReceitaMensal\Index.cshtml" />
+    <Content Include="Views\ReceitaMensal\_ListaReceitaPartial.cshtml" />
+    <Content Include="Views\DespesaMensal\_DetalharDespesaLiquidadaPartial.cshtml" />
+    <Content Include="Views\DespesaMensal\_LiquidarDespesaMensalPartial.cshtml" />
+    <Content Include="Views\DespesaMensal\_RegistrarDespesaLiquidadaPartial.cshtml" />
+    <Content Include="Views\DespesaMensal\_RegistrarDespesaCartaoCreditoPartial.cshtml" />
+    <Content Include="Views\CartaoCredito\_ListaBasicaCartaoCreditoPartial.cshtml" />
+    <Content Include="Views\DespesaMensal\_DespesaParceladaCartaoCreditoPartial.cshtml" />
+    <Content Include="Views\DespesaMensal\_RegistrarDespesaChequePrePartial.cshtml" />
+    <Content Include="Views\DespesaMensal\_RegistrarDespesaChequeAVistaPartial.cshtml" />
+    <Content Include="Views\DespesaMensal\_DespesaParceladaBoletoPartial.cshtml" />
+    <Content Include="Views\DespesaMensal\_RegistrarDespesaDebitoContaPartial.cshtml" />
+    <Content Include="Views\DespesaMensal\_DespesaParceladaDebitoContaPartial.cshtml" />
+    <Content Include="Views\DespesaMensal\_DespesaParceladaFaturaPartial.cshtml" />
+    <Content Include="Views\Usuario\Login.cshtml" />
+    <Content Include="Views\Shared\_LayoutBlank.cshtml" />
+    <Content Include="Views\Usuario\Cadastrar.cshtml" />
+    <Content Include="Views\Usuario\Registrado.cshtml" />
+    <Content Include="Views\Usuario\ConfirmacaoUsuario.cshtml" />
+    <Content Include="Views\Usuario\ReenviarConfirmacaoUsuario.cshtml" />
+    <Content Include="Views\Usuario\Reenviado.cshtml" />
+    <Content Include="Content\bootstrap\js\bootstrap-select.js.map" />
+    <Content Include="Content\bootstrap\css\bootstrap-select.css.map" />
+    <None Include="Properties\PublishProfiles\gfin.pubxml" />
+    <None Include="Properties\PublishProfiles\ISUP05-DESENV.pubxml" />
+    <None Include="Properties\PublishProfiles\MaquinaLocal.pubxml" />
+    <Content Include="Views\Usuario\EsqueciMinhaSenha.cshtml" />
+    <Content Include="Views\Home\FaleConosco.cshtml" />
+    <Content Include="Views\Usuario\ConfirmarCodigoSeguranca.cshtml" />
+    <Content Include="Views\Usuario\RedefinirSenhaUsuario.cshtml" />
+    <Content Include="Views\DespesaMensal\_ListaDespesaSimplesPartial.cshtml" />
+    <Content Include="Views\ReceitaMensal\_ListaReceitaSimplesPartial.cshtml" />
+    <Content Include="Views\ContasFixas\Index.cshtml" />
+    <Content Include="Views\Boleto\AtualizarBoleto.cshtml" />
+    <Content Include="Views\ControleFinanceiro\Compartilhar.cshtml" />
+    <Content Include="Views\ReceitaMensal\Editar.cshtml" />
+    <Content Include="Views\ReceitaMensal\_LiquidarReceitaMensalPartial.cshtml" />
+    <Content Include="Views\Usuario\_MudarFotoUsuarioPartial.cshtml" />
+    <Content Include="Views\Usuario\AlterarDadosUsuario.cshtml" />
+    <Content Include="Views\Usuario\AlterarSenhaUsuarioLogado.cshtml" />
+    <Content Include="Views\ControleFinanceiro\ListarCompartilhamento.cshtml" />
+    <Content Include="Views\DespesaMensal\_RegistrarDespesaSimplesPartial.cshtml" />
+    <Content Include="Views\ReceitaMensal\_RegistrarReceitaSimplesPartial.cshtml" />
+    <Content Include="Views\DespesaFixa\_HistoricoAtualizacaoPartial.cshtml" />
+    <Content Include="Views\Cheque\_ListaHistoricoChequePartial.cshtml" />
+    <Content Include="Views\DespesaMensal\_ConfirmarRemocaoDespesaMensalPartial.cshtml" />
+    <Content Include="Views\DespesaMensal\Editar.cshtml" />
+    <Content Include="Views\DespesaMensal\_ListaParcelamentoDespesaPartial.cshtml" />
+    <Content Include="Views\ReceitaMensal\_DetalharReceitaLiquidadaPartial.cshtml" />
+    <Content Include="Views\ContasMensal\_ListaContasPartial.cshtml" />
+    <Content Include="Views\ContasMensal\Index.cshtml" />
+    <Content Include="Views\ContasFixas\_ListaHistoricoProcessoPartial.cshtml" />
+    <None Include="Web.Azure.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GFin.Core\GFin.Core.csproj">
+      <Project>{52ae5bf2-163f-4c3f-b497-3e89edb2c44a}</Project>
+      <Name>GFin.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Azure|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>27708</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:8787/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

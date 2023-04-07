@@ -1,0 +1,71 @@
+﻿@model GFin.Web.Models.DetalheReceitaLiquidadaModel
+@Html.HiddenFor(model => model.IdReceitaMensal, new { @id = "IdReceitaMensalLiquidada" })
+<div class="modal fade" id="modalDetalharReceitaLiquidada" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Detalhar Receita Liquidada</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row mensagens">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="alert"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="DescricaoNaturezaReceitaMensal">Natureza Receita</label>
+                            @Html.TextBoxFor(model => model.DescricaoNaturezaReceitaMensal, new { @readonly = true, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="DescricaoTipoFormaRecebimento">Forma Recebimento</label>
+                            @Html.TextBoxFor(model => model.DescricaoTipoFormaRecebimento, new { @readonly = true, @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label class="control-label" for="TextoDescricaoReceitaMensal">Descrição Receita</label>
+                            @Html.TextBoxFor(model => model.TextoDescricaoReceitaMensal, new { @readonly = true, @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label" for="DataRecebimentoReceita"><span class="hidden-xs">Data </span>Recebimento</label>
+                            @Html.TextBoxFor(model => model.DataRecebimentoReceita, new { @readonly = true, @class = "form-control text-center" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label" for="ValorReceita">Valor Receita</label>
+                            @Html.TextBoxFor(model => model.ValorReceita, new { @readonly = true, @class = "form-control text-right" })
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label" for="DataLiquidacaoReceita">Data de Liquidação</label>
+                            @Html.TextBoxFor(model => model.DataLiquidacaoReceita, new { @readonly = true, @class = "form-control text-center" })
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label" for="ValorTotalLiquidacaoReceita">Valor Total Liquidação</label>
+                            @Html.TextBoxFor(model => model.ValorTotalLiquidacaoReceita, new { @readonly = true, @class = "form-control text-right" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnEstornarReceitaLiquidada" type="button" class="btn btn-sm btn-primary" title="Realizar o estorno da receita liquidada.">Estornar</button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" title="Fechar detalhes da receita liquidada.">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

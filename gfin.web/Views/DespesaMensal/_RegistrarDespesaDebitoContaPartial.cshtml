@@ -1,0 +1,57 @@
+﻿@model GFin.Web.Models.DespesaMensalDebitoContaModel
+<div class="modal fade" id="modalRegistrarDespesaDebitoConta" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Registrar Despesa - Débito em Conta Corrente</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row mensagens">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="alert"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label class="control-label" for="IdBancoAgenciaContaCorrente">Banco / Agência / Conta Corrente</label>
+                            @if (Model.DropboxBancoAgenciaContaCorrente != null)
+                            {
+                                @Html.DropDownListFor(model => model.IdBancoAgenciaContaCorrente, Model.DropboxBancoAgenciaContaCorrente.Itens, new { @class = "form-control", @title = "Banco/Agência/Conta Corrente" })
+                            }
+                            else
+                            {
+                                <div class="alert alert-warning" role="alert">Nenhum conta corrente registrada.</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="FormaPagamentoDespesaMensal">Forma Liquidação</label>
+                            @Html.TextBoxFor(model => model.FormaPagamentoDespesaMensal, new { @readonly = true, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="DataVencimento">Data Vencimento</label>
+                            @Html.TextBoxFor(model => model.DataVencimento, String.Format("{0:d}", Model.DataVencimento), new { @readonly = true, @class = "form-control text-center" })
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label" for="ValorDespesa">Valor Despesa</label>
+                            @Html.TextBoxFor(model => model.ValorDespesa, Model.ValorDespesa.ToString("n"), new { @readonly = true, @class = "form-control text-right" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnRegistrarDespesaDebitoConta" type="button" class="btn btn-sm btn-primary">Registrar</button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

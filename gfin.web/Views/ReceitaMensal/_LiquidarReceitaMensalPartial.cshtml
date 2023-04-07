@@ -1,0 +1,78 @@
+﻿@model GFin.Web.Models.LiquidaReceitaMensalModel
+<form id="liquidarForm" onsubmit="return false;">
+    @Html.HiddenFor(model => model.IdReceitaMensal)
+    <div class="modal fade" id="modalLiquidarReceitaMensal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Liquidar Receita Mensal</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row mensagens">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="alert"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="control-label" for="DescricaoNaturezaReceitaMensal">Natureza Receita</label>
+                                @Html.TextBoxFor(model => model.DescricaoNaturezaReceitaMensal, new { @readonly = true, @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label class="control-label" for="DescricaoTipoFormaRecebimento">Forma Recebimento</label>
+                                @Html.TextBoxFor(model => model.DescricaoTipoFormaRecebimento, new { @readonly = true, @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <label class="control-label" for="TextoDescricaoReceitaMensal">Descrição Receita</label>
+                                @Html.TextBoxFor(model => model.TextoDescricaoReceitaMensal, new { @readonly = true, @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label class="control-label" for="DataRecebimentoReceita"><span class="hidden-xs">Data </span>Recebimento</label>
+                                @Html.TextBoxFor(model => model.DataRecebimentoReceita, new { @readonly = true, @class = "form-control text-center" })
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label class="control-label" for="ValorReceita">Valor Receita</label>
+                                @Html.TextBoxFor(model => model.ValorReceita, new { @readonly = true, @class = "form-control text-right" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label for="DataLiquidacaoReceita">Data Liquidação</label>
+                                <div class='input-group date' id='dtpDataLiquidacaoReceita'>
+                                    @Html.TextBoxFor(m => m.DataLiquidacaoReceita, String.Format("{0:d}", Model.DataLiquidacaoReceita), new { @required = true, @maxlength = 10, @alt = "data", @class = "form-control text-center", @placeholder = "dd/mm/aaaa" })
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label class="control-label" for="ValorTotalLiquidacaoReceita">Total Liquidação</label>
+                                @Html.TextBoxFor(m => m.ValorTotalLiquidacaoReceita, new { @maxlength = "15", @alt = "valor", @required = true, @class = "form-control text-right", @placeholder = "Valor da total" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-primary" id="btnLiquidarReceita" title="Realizar liquidação da Receita mensal.">Liquidar</button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" title="Cancelar liquidação da Receita mensal.">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

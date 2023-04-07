@@ -1,0 +1,45 @@
+﻿@model GFin.Web.Models.ChequeRegistroModel
+@{
+    ViewBag.Title = "Registro de Cheque";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Registrar", "Cheque", FormMethod.Post, new { @id = "formChequeMensal" }))
+{
+    @Html.Hidden("IdCheque")
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="form-group">
+                <label class="control-label" for="IdBancoAgenciaContaCorrente">Banco / Agência / Conta Corrente</label>
+                @if (Model.DropboxBancoAgenciaContaCorrente != null)
+                {
+                    @Html.DropDownListFor(model => model.IdBancoAgenciaContaCorrente, Model.DropboxBancoAgenciaContaCorrente.Itens, new { @required = true, @class = "form-control", @title = "Banco/Agência/Conta Corrente" })
+                }
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+                <label for="NumeroChequeInicial">N.º Cheque Inicial</label>
+                @Html.TextBoxFor(model => model.NumeroChequeInicial, new { @maxlength = 8, @alt = "numero-cheque", @required = true, @class = "form-control text-center", @placeholder = "N.º Inicial", @title = "Número inicial da faixa de cheque." })
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+                <label for="NumeroChequeFinal">N.º Cheque Final</label>
+                @Html.TextBoxFor(model => model.NumeroChequeFinal, new { @maxlength = 8, @alt = "numero-cheque", @required = true, @class = "form-control text-center", @placeholder = "N.º Final", @title = "Número final da faixa de cheque." })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="pull-right">
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+        </div>
+    </div>
+}
+<div id="listarCheque">Carregar lista de cheques...</div>
+<div id="chequeRegistros"></div>
+<div id="historicoCheque"></div>
+@section ScriptPage {
+    <script src="~/Content/site/js/ViewCheque.js"></script>
+}

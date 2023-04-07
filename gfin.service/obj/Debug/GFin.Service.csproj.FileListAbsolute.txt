@@ -1,0 +1,15 @@
+D:\projetos-git\gerenciador-financeiro\gfin.service\bin\Debug\GFin.Service.exe.config
+D:\projetos-git\gerenciador-financeiro\gfin.service\bin\Debug\GFin.Service.exe
+D:\projetos-git\gerenciador-financeiro\gfin.service\bin\Debug\GFin.Service.pdb
+D:\projetos-git\gerenciador-financeiro\gfin.service\bin\Debug\GFin.Core.dll
+D:\projetos-git\gerenciador-financeiro\gfin.service\bin\Debug\EntityFramework.dll
+D:\projetos-git\gerenciador-financeiro\gfin.service\bin\Debug\GFin.Core.pdb
+D:\projetos-git\gerenciador-financeiro\gfin.service\bin\Debug\EntityFramework.xml
+D:\projetos-git\gerenciador-financeiro\gfin.service\obj\Debug\GFin.Service.csproj.AssemblyReference.cache
+D:\projetos-git\gerenciador-financeiro\gfin.service\obj\Debug\GFin.Service.ProjectInstaller.resources
+D:\projetos-git\gerenciador-financeiro\gfin.service\obj\Debug\GFin.Service.VerificarContasService.resources
+D:\projetos-git\gerenciador-financeiro\gfin.service\obj\Debug\GFin.Service.csproj.GenerateResource.cache
+D:\projetos-git\gerenciador-financeiro\gfin.service\obj\Debug\GFin.Service.csproj.CoreCompileInputs.cache
+D:\projetos-git\gerenciador-financeiro\gfin.service\obj\Debug\GFin.Service.csproj.CopyComplete
+D:\projetos-git\gerenciador-financeiro\gfin.service\obj\Debug\GFin.Service.exe
+D:\projetos-git\gerenciador-financeiro\gfin.service\obj\Debug\GFin.Service.pdb

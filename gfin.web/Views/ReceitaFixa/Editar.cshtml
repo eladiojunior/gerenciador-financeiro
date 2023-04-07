@@ -1,0 +1,50 @@
+﻿@model GFin.Web.Models.ReceitaFixaModel
+
+@{
+    ViewBag.Title = "Editar Receita Fixa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Editar", "ReceitaFixa", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.IdReceitaFixa)
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="form-group">
+                <label for="IdNaturezaContaReceitaFixa">Natureza da Receita:</label>
+                @Html.DropDownListFor(model => model.IdNaturezaContaReceitaFixa, Model.DropboxNaturezaReceita.Itens, new { @required = true, @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-2 col-xs-6">
+            <div class="form-group">
+                <label for="NumeroDiaRecebimentoReceitaFixa">Recebimento:</label>
+                @Html.DropDownListFor(model => model.NumeroDiaRecebimentoReceitaFixa, Model.DropboxDiaRecebimento.Itens, new { @required = true, @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-6">
+            <div class="form-group">
+                <label for="ValorReceitaFixa">Valor Receita:</label>
+                @Html.TextBoxFor(model => model.ValorReceitaFixa, new { @maxlength = "15", @alt = "valor", @required = true, @class = "form-control valor text-right", @placeholder = "Valor da receita fixa" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="form-group">
+                <label for="TextoDescricaoReceitaFixa">Descrição Receita Fixa:</label>
+                @Html.TextBoxFor(model => model.TextoDescricaoReceitaFixa, new { @maxlength = 150, @required = true, @class = "form-control", @title = "Informe a descrição da receita fixa.", @placeholder = "Texto da descrição da receita fixa" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="pull-right">
+                <button id="btnGravar" type="submit" class="btn btn-primary">Gravar</button>
+                @Html.ActionLink("Voltar", "Index", "ReceitaFixa", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+<div id="listaReceitaFixa">Carregar lista de receita fixa...</div>
+@section ScriptPage {
+    <script src="~/Content/site/js/ViewReceitaFixa.js"></script>
+}

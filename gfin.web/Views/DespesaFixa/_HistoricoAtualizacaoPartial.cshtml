@@ -1,0 +1,69 @@
+﻿@model GFin.Web.Models.HistoricoDespesaFixaModel
+<div class="modal fade" id="modalHistoricoDespesaFixa" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Histórico de Atualização da Despesa Fixa</h4>
+            </div>
+            <div class="modal-body" style="height: 500px;overflow-y: auto;">
+                <div class="row mensagens">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="alert"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="form-group">
+                            <label for="TextoDescricaoDespesaFixa">Descrição da Despesa Fixa:</label>
+                            <span class="form-control disabled">@Model.TextoDescricaoDespesaFixa</span>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.HistoricoDespesasFixas != null && Model.HistoricoDespesasFixas.Any() && Model.HistoricoDespesasFixas.Count > 1)
+                 {
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <canvas id="chartHistoricoDespesas" height="150"></canvas>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <table class="table table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"><span class="hidden-xs hidden-sm">Data de </span>Atualização</th>
+                                    <th class="text-center">Valor<span class="hidden-xs hidden-sm"> da Despesa</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model.HistoricoDespesasFixas != null && Model.HistoricoDespesasFixas.Any())
+                                    {
+                                        foreach (var item in Model.HistoricoDespesasFixas)
+                                        {
+                                            <tr>
+                                                <td class="text-center">@Html.DisplayFor(x => item.DataHoraRegistroHistoricoDespesaFixa, String.Format("{0:d}", item.DataHoraRegistroHistoricoDespesaFixa))</td>
+                                                <td class="text-right">@Html.DisplayFor(x => item.ValorHistoricoDespesaFixa, String.Format("{0:d}", item.ValorHistoricoDespesaFixa))</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="2">Nenhuma atualização de valor foi realizada na despesa.</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

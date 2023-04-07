@@ -1,0 +1,39 @@
+﻿@model List<GFin.Dados.Models.ContaCorrente>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="hidden-xs">N.º Banco</th>
+            <th><span class="hidden-md hidden-sm hidden-lg">N.º e </span>Nome Banco</th>
+            <th class="text-center">N.º Agência</th>
+            <th class="text-center">N.º Conta <span class="hidden-xs">Corrente</span></th>
+            <th class="text-center">Situação <span class="hidden-xs">Conta</span></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td class="hidden-xs">@item.NumeroBanco.ToString("000")</td>
+            <td><span class="hidden-md hidden-sm hidden-lg">@item.NumeroBanco.ToString("000")-</span>@item.NomeBanco</td>
+            <td class="text-right">@item.NumeroAgencia</td>
+            <td class="text-right">@item.NumeroContaCorrente</td>
+            <td class="text-center">@(item.IsContaCorrenteAtiva?"Ativa":"Inativa")</td>
+            <td class="text-center">
+                <div class="btn-group dropup visible-xs">
+                    <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>@Html.ActionLink("Editar Conta", "Editar", "ContaCorrente", new { @id = item.Id }, new { @title = "Editar Conta Corrente" })</li>
+                        <li><a href="#" title="Remover conta corrente." data-id="@item.Id" class="removerContaCorrente">Remover Conta</a></li>
+                    </ul>
+                </div>
+                <div class="hidden-xs">
+                    @Html.ActionLink(" ", "Editar", "ContaCorrente", new { @id = item.Id }, new { @class = "glyphicon glyphicon-edit", @title = "Editar Conta Corrente" })
+                    <span>&nbsp;</span>
+                    <a href="#" title="Remover conta corrente." data-id="@item.Id" class="glyphicon glyphicon-trash removerContaCorrente"></a>
+                </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

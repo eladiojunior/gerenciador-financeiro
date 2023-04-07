@@ -54,7 +54,7 @@ namespace gfin.webapi.Dados
         {
             try
             {
-                _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
             catch (Exception erro)
             {
